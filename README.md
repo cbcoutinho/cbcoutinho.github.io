@@ -1,4 +1,5 @@
 # cbcoutinho.github.io
 Personal website
 
-[Link to website](cbcoutinho.github.io)
+
+[Link to website](https://cbcoutinho.github.io/)

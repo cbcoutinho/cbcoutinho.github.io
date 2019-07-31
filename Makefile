@@ -1,6 +1,7 @@
 PY?=python3
-PELICAN?=pelican
+PELICAN?=pipenv run pelican
 PELICANOPTS=
+GHP_IMPORT?=pipenv run ghp-import
 
 BASEDIR=$(CURDIR)
 INPUTDIR=$(BASEDIR)/content
@@ -86,7 +87,7 @@ rsync_upload: publish
 	rsync -e "ssh -p $(SSH_PORT)" -P -rvzc --cvs-exclude --delete $(OUTPUTDIR)/ $(SSH_USER)@$(SSH_HOST):$(SSH_TARGET_DIR)
 
 github: publish
-	ghp-import -m "Generate Pelican site" -b $(GITHUB_PAGES_BRANCH) $(OUTPUTDIR)
+	$(GHP_IMPORT) -m "Generate Pelican site" -b $(GITHUB_PAGES_BRANCH) $(OUTPUTDIR)
 	git push origin $(GITHUB_PAGES_BRANCH)
 
 

@@ -7,7 +7,7 @@ SITENAME = "Chris Coutinho"
 SITEURL = ""
 
 PATH = "content"
-STATIC_PATHS = ["files"]
+STATIC_PATHS = ["files", "images"]
 
 TIMEZONE = "Europe/Amsterdam"
 
@@ -22,10 +22,11 @@ AUTHOR_FEED_RSS = None
 
 # Blogroll
 LINKS = (
-    ("Pelican", "http://getpelican.com/"),
-    ("Python.org", "http://python.org/"),
-    ("Jinja2", "http://jinja.pocoo.org/"),
-    ("You can modify those links in your config file", "#"),
+    ("Rotaract Amsterdam", "https://rotaractamsterdam.nl/"),
+    # ("Pelican", "http://getpelican.com/"),
+    # ("Python.org", "http://python.org/"),
+    # ("Jinja2", "http://jinja.pocoo.org/"),
+    # ("You can modify those links in your config file", "#"),
 )
 
 # Social widget

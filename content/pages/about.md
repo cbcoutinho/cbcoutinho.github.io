@@ -1,5 +1,7 @@
 Title: About
 
-[My keybase.io proof]({static}/keybase.txt)
+![selfpic]({static}/images/self.jpg){:height="150px"}
 
-[My public gpg key]({static}/files/pubkey.asc)
+[_Curriculum vitae_]({static}/files/coutinho_cv.pdf)
+
+[Public gpg key]({static}/files/pubkey.asc)

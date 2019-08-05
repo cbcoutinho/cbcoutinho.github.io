@@ -20,7 +20,8 @@ PLUGIN_PATHS = [
 ]
 
 MARKUP = ["md", "ipynb"]
-PLUGINS = ["pelican-ipynb.markup"]
+PLUGIN_PATHS = ["plugins"]
+PLUGINS = ["ipynb.markup"]
 IGNORE_FILES = [".ipynb_checkpoints"]
 
 

@@ -16,6 +16,9 @@ SSH_TARGET_DIR=/var/www
 
 GITHUB_PAGES_BRANCH=master
 
+ifdef THEME
+	PELICANOPTS += -t $(THEME)
+endif
 
 DEBUG ?= 0
 ifeq ($(DEBUG), 1)

@@ -8,6 +8,7 @@ SITEURL = ""
 
 PATH = "content"
 STATIC_PATHS = ["files", "images"]
+EXTRA_PATH_METADATA = {"files/keybase.txt": {"path": "keybase.txt"}}
 
 TIMEZONE = "Europe/Amsterdam"
 

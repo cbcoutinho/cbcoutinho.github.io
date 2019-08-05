@@ -7,7 +7,7 @@ SITENAME = "Chris Coutinho"
 SITEURL = ""
 
 PATH = "content"
-# STATIC_PATHS = [""]
+STATIC_PATHS = ["files"]
 
 TIMEZONE = "Europe/Amsterdam"
 

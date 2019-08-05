@@ -1,0 +1,86 @@
+==================================================================
+https://keybase.io/cbcoutinho
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://cbcoutinho.github.io
+  * I am cbcoutinho (https://keybase.io/cbcoutinho) on keybase.
+  * I have a public key with fingerprint C31A D5CE 0DB1 5236 0CBB  78D3 ACC5 190D 2F6F 160F
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "0120f4931f1e446fc20343b6d2b9bd53883837546271ba0833d80d190ef865e3438d0a",
+      "fingerprint": "c31ad5ce0db152360cbb78d3acc5190d2f6f160f",
+      "host": "keybase.io",
+      "key_id": "acc5190d2f6f160f",
+      "kid": "01017752b71ac526f257d1aeb658aff601e5d41e22cc7ae7aae96211e26ff4125f630a",
+      "uid": "aae961720a181fd1780be031c10d7519",
+      "username": "cbcoutinho"
+    },
+    "merkle_root": {
+      "ctime": 1564984633,
+      "hash_meta": "eb6dfd4d17a95f5d6fba69b43b6f3932af8abd5c89ce45d50bd60c8a54f94109",
+      "seqno": 5938809
+    },
+    "revoke": {
+      "sig_ids": [
+        "eedeba4f52a9df5efaaded0d9c0226ac72ba700b27ecf3c056e232a216bb046f0f"
+      ]
+    },
+    "service": {
+      "hostname": "cbcoutinho.github.io",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 1
+  },
+  "ctime": 1564984645,
+  "expire_in": 157680000,
+  "prev": "7f80749d539b59816e6f9df29544aaece79cf145e231b9d035db9d0af49c6472",
+  "seqno": 21,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+-----BEGIN PGP MESSAGE-----
+
+owFtU2tMFUcUBsQoNk19xEYrNLjVUgyPmd2dfVw1jTWiMdQS05paApeZnRnuCtx7
+3XuhvaItaKjPiKYpFamNGmuhD7A+AJUg4sVoakQ0bcQ2VWPbFNSo1VCViJ3FmiZt
+989kz3zfOd/5zpktz46IGR2b3OOMbNuLw7Hf9ZGYvPldi8olEqARyVMuFbHhgxVT
+Fgp7i2wqeSQAZcBVU4EcMlXVuCUDRVWIRmViEooUw1AMRUeqJuuQYGAoCjUAhSZg
+3NAQE1iDAiylSdz2FzIn6Nj+sEhrKRBTZDFACUSyogGLEN2gCrYsJMhU5hqHGuCC
+6AuEXIYQR3CIZdgBERM/3mF5/4N/qhtAXUcy0SG2kKxxGekUYkY0ZGDONQAZoipk
+smxZOmY6xszUZCgCGucqlBHXlGHdpU/quNdQlwGGBuQU6gYgDCjQgoDqQoELDDHH
+j0uY2x2xAqVh2+8LSKvSpBLmFBUzrxMIhF17rbDtgiDSVNNQNUURLeKQz1vCwlhw
+hULKqSpKYBNxRDVOsGYS13OumIqMuYGF8ZZhWkxFFAFChXsGRio3VQhcJSG23B+Q
+PMgU0wGmUOCwskARc4uH7EJhXEjy5EqMdVRSRrDKkYxNyhHjGFNGATUtIMsatnSZ
+YB0AIuvM4ooFkMZkIUCGGiFA7IKwO2+VW84ps63h9O6s/uNBRqEd9pWSJ5MLOoFw
+wAoUC4QvHA6GPK5D4UjQpbzLiPfvZF5i+6nYGMEoY07IDviFYwL5L/NUlCax94K2
+w7y2i0C6ZgDxuXVYmUipcwPoqikW1STINKDGNC56lU2kqmKmFtNNi0MVicYgMSlQ
+EHUPLFbe0lRd/sdNGQqduFDkFB76cbjUYdKqMevjlPiY2NExSc9Pja9IrNkbl0D7
+s9vjTz59ZSPj3CcWMyZh7NPIhw3PPRzx/pLmbvvN7UcqZjcprVnKt5mPPStqk/sT
+Xz69LYVEvE5Fyqx9269Fo0dnJHVtKKn4Gng/ZwdfOnYiFBqV/lXE+3blsYPpSyV/
+ZNvsA3LaxZWTd+CmrPE/zAquX7B74rUpeb9Pf+adzCvQSf3Rv7l7aI4/Z+PdBbn1
+ZxW4uTL1g+8X3t90qu/GlszmZc6E+jsf1QxMe7ywt2BG/oXGTU1XScK8BzuUF6e2
+V99aa/F7k8+brZfeSqTWpYZZORvOdbXmX+6ZcHZbQ13unXWrl0YXfbakZVN0WsLy
+46EXZi6p6ruXWj5UtXXMlhOpvZVZAyt696ybOrDLF2WnHxbnXv/tcMd52e6ubfzD
+qps/acSV3SeGfl3TnxY9Xd1Zc1vZWlgz9+ObrRntVesjCdXJcwbbOzpP7hz75y+7
+bn5ytrEgMzHuRm/5jcuX2opP7WkcH6or/Sb2aKqnJWmg/O6uRwMHDsEatrq8f76u
+Dy32Jb1WVF+5+PWJr+7MPrcn48zK5jWHUw5d/3lpy+h9xy/qV3vuDKbA6s4CNO6n
+vLxDffG+iplv1E67/8rRSRercm9F8/XapoJsdXq61tVd11Gx4vbtwnUjR52qL1s8
+r3NccLCl5FHXXWu/k31kWdaF/Q+0YMncbr4xv0Wfcn/Zxh05TQ0L2pPr28pATmBt
+d2mkyvvFoNLT0BbOePxp9Mu1zpnmKemZfwE=
+=5PzK
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/cbcoutinho
+
+==================================================================

@@ -4,11 +4,11 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-jupyter = "*"
-jupyterlab = "*"
-matplotlib = "*"
 
 [packages]
 pelican = "*"
 markdown = "*"
 ghp-import = "*"
+jupyter = "*"
+jupyterlab = "*"
+matplotlib = "*"

@@ -13,6 +13,7 @@ EXTRA_PATH_METADATA = {"files/keybase.txt": {"path": "keybase.txt"}}
 TIMEZONE = "Europe/Amsterdam"
 
 DEFAULT_LANG = "en"
+DEFAULT_DATE = "fs"
 
 # Feed generation is usually not desired when developing
 FEED_ALL_ATOM = None

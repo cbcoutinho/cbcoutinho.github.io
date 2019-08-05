@@ -5,12 +5,24 @@ from __future__ import unicode_literals
 AUTHOR = "Chris Coutinho"
 SITENAME = "Chris Coutinho"
 SITEURL = ""
+TIMEZONE = "Europe/Amsterdam"
 
 PATH = "content"
 STATIC_PATHS = ["files", "images"]
+
+# This moves the keybase.io proof from a subdirectory to the site root
+#   http://docs.getpelican.com/en/stable/settings.html#metadata
 EXTRA_PATH_METADATA = {"files/keybase.txt": {"path": "keybase.txt"}}
 
-TIMEZONE = "Europe/Amsterdam"
+PLUGIN_PATHS = [
+    # "/home/chris/Software/pelican-plugins",
+    # "/home/chris/Software"
+]
+
+MARKUP = ["md", "ipynb"]
+PLUGINS = ["pelican-ipynb.markup"]
+IGNORE_FILES = [".ipynb_checkpoints"]
+
 
 DEFAULT_LANG = "en"
 DEFAULT_DATE = "fs"
@@ -36,13 +48,6 @@ SOCIAL = (
     ("Github", "https://www.github.com/cbcoutinho"),
     ("LinkedIn", "https://www.linkedin.com/in/cbcoutinho/"),
 )
-
-ABOUT = {
-    "mail": "chrisbcoutinho@gmail.com",
-    "address": "Amsterdam, The Netherlands",
-    "link": "contact.html",
-    "text": "Feel free to drop a message",
-}
 
 DEFAULT_PAGINATION = 10
 

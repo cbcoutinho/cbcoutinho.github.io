@@ -1,7 +1,8 @@
-PY?=python3
-PELICAN?=pipenv run pelican
+PY?=python
+PELICAN?=poetry run pelican
 PELICANOPTS=
-GHP_IMPORT?=pipenv run ghp-import
+GHP_IMPORT?=poetry run ghp-import
+JUPYTER?=poetry run jupyter
 
 BASEDIR=$(CURDIR)
 INPUTDIR=$(BASEDIR)/content
@@ -61,14 +62,14 @@ html:
 
 ipynb_clean:
 	find $(INPUTDIR) \( -name '*.ipynb' -and ! -name '*checkpoint*' \) \
-		-exec pipenv run jupyter nbconvert \
+		-exec $(JUPYTER) nbconvert \
 		--ClearOutputPreprocessor.enabled=True \
 		--inplace \
 		{} \;
 
 fresh: ipynb_clean
 	find $(INPUTDIR) \( -name '*.ipynb' -and ! -name '*checkpoint*' \) \
-		-exec pipenv run jupyter nbconvert \
+		-exec $(JUPYTER) nbconvert \
 		--execute \
 		--inplace \
 		{} \;

@@ -22,7 +22,7 @@ PLUGIN_PATHS = [
 MARKUP = ["md", "ipynb"]
 PLUGIN_PATHS = ["plugins"]
 PLUGINS = ["ipynb.markup"]
-IGNORE_FILES = [".ipynb_checkpoints"]
+IGNORE_FILES = [".ipynb_checkpoints", "*draft*"]
 
 
 DEFAULT_LANG = "en"

@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*- #
 from __future__ import unicode_literals
+from pelican_jupyter import markup as nb_markup
 
 AUTHOR = "Chris Coutinho"
 SITENAME = "Chris Coutinho"
@@ -19,9 +20,8 @@ PLUGIN_PATHS = [
     # "/home/chris/Software"
 ]
 
-MARKUP = ["md", "ipynb"]
-PLUGIN_PATHS = ["plugins"]
-PLUGINS = ["ipynb.markup"]
+MARKUP = ("md", "ipynb")
+PLUGIN = [nb_markup]
 IGNORE_FILES = [".ipynb_checkpoints", "*draft*"]
 
 

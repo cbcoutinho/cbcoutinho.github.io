@@ -1,8 +1,8 @@
 PY?=python
-PELICAN?=poetry run pelican
+PELICAN?=pelican
 PELICANOPTS=
-GHP_IMPORT?=poetry run ghp-import
-JUPYTER?=poetry run jupyter
+GHP_IMPORT?=ghp-import
+JUPYTER?=jupyter
 
 BASEDIR=$(CURDIR)
 INPUTDIR=$(BASEDIR)/content

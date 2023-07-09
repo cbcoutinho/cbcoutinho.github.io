@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Chris' blog - Notes</title><link href="https://blog.coutinho.io/" rel="alternate"></link><link href="https://blog.coutinho.io/feeds/notes.atom.xml" rel="self"></link><id>https://blog.coutinho.io/</id><updated>2023-07-10T00:01:05+02:00</updated><entry><title>Test</title><link href="https://blog.coutinho.io/test.html" rel="alternate"></link><published>2023-07-10T00:01:05+02:00</published><updated>2023-07-10T00:01:05+02:00</updated><author><name>Chris Coutinho</name></author><id>tag:blog.coutinho.io,2023-07-10:/test.html</id><summary type="html">&lt;!--status: draft--&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Chris' blog - Notes</title><link href="https://blog.coutinho.io/" rel="alternate"></link><link href="https://blog.coutinho.io/feeds/notes.atom.xml" rel="self"></link><id>https://blog.coutinho.io/</id><updated>2023-07-09T22:19:31+02:00</updated><entry><title>Test</title><link href="https://blog.coutinho.io/test.html" rel="alternate"></link><published>2023-07-09T22:19:31+02:00</published><updated>2023-07-09T22:19:31+02:00</updated><author><name>Chris Coutinho</name></author><id>tag:blog.coutinho.io,2023-07-09:/test.html</id><summary type="html">&lt;!--status: draft--&gt;
 &lt;hr&gt;
 &lt;!DOCTYPE html&gt;
 &lt;html&gt;
@@ -15331,7 +15331,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 
 
 
-&lt;/html&gt;</content><category term="Notes"></category></entry><entry><title>Clojupyter</title><link href="https://blog.coutinho.io/clojupyter.html" rel="alternate"></link><published>2019-01-01T00:00:00+01:00</published><updated>2023-07-10T00:01:05+02:00</updated><author><name>Chris Coutinho</name></author><id>tag:blog.coutinho.io,2019-01-01:/clojupyter.html</id><summary type="html">&lt;!--status: draft--&gt;
+&lt;/html&gt;</content><category term="Notes"></category></entry><entry><title>Clojupyter</title><link href="https://blog.coutinho.io/clojupyter.html" rel="alternate"></link><published>2019-01-01T00:00:00+01:00</published><updated>2023-07-09T22:19:31+02:00</updated><author><name>Chris Coutinho</name></author><id>tag:blog.coutinho.io,2019-01-01:/clojupyter.html</id><summary type="html">&lt;!--status: draft--&gt;
 &lt;hr&gt;
 &lt;!DOCTYPE html&gt;
 &lt;html&gt;
@@ -30726,7 +30726,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 
 
 
-&lt;/html&gt;</content><category term="Notes"></category></entry><entry><title>My First Review</title><link href="https://blog.coutinho.io/my-first-review.html" rel="alternate"></link><published>2010-12-03T10:20:00+01:00</published><updated>2023-07-10T00:01:05+02:00</updated><author><name>Chris Coutinho</name></author><id>tag:blog.coutinho.io,2010-12-03:/my-first-review.html</id><summary type="html">&lt;p&gt;Following is a review of my favorite mechanical keyboard.&lt;/p&gt;
+&lt;/html&gt;</content><category term="Notes"></category></entry><entry><title>My First Review</title><link href="https://blog.coutinho.io/my-first-review.html" rel="alternate"></link><published>2010-12-03T10:20:00+01:00</published><updated>2023-07-09T22:19:31+02:00</updated><author><name>Chris Coutinho</name></author><id>tag:blog.coutinho.io,2010-12-03:/my-first-review.html</id><summary type="html">&lt;p&gt;Following is a review of my favorite mechanical keyboard.&lt;/p&gt;
 &lt;h1&gt;First paragraph&lt;/h1&gt;
 &lt;p&gt;words
 words

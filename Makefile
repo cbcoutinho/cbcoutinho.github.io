@@ -15,7 +15,7 @@ SSH_PORT=22
 SSH_USER=chris
 SSH_TARGET_DIR=/var/www
 
-GITHUB_PAGES_BRANCH=master
+GITHUB_PAGES_BRANCH=gh-pages
 
 ifdef THEME
 	PELICANOPTS += -t $(THEME)
@@ -41,8 +41,6 @@ help:
 	@echo '                                                                                '
 	@echo ' Usage:                                                                         '
 	@echo ' make html                           (re)generate the web site                  '
-	@echo ' make ipynb_clean                    clear output of all jupyter notebooks      '
-	@echo ' make fresh                          clear output and execute jupyter notebooks '
 	@echo ' make clean                          remove the generated files                 '
 	@echo ' make regenerate                     regenerate files upon modification         '
 	@echo ' make publish                        generate using production settings         '
@@ -59,20 +57,6 @@ help:
 
 html:
 	$(PELICAN) $(INPUTDIR) -o $(OUTPUTDIR) -s $(CONFFILE) $(PELICANOPTS)
-
-ipynb_clean:
-	find $(INPUTDIR) \( -name '*.ipynb' -and ! -name '*checkpoint*' \) \
-		-exec $(JUPYTER) nbconvert \
-		--ClearOutputPreprocessor.enabled=True \
-		--inplace \
-		{} \;
-
-fresh: ipynb_clean
-	find $(INPUTDIR) \( -name '*.ipynb' -and ! -name '*checkpoint*' \) \
-		-exec $(JUPYTER) nbconvert \
-		--execute \
-		--inplace \
-		{} \;
 
 clean:
 	[ ! -d $(OUTPUTDIR) ] || rm -rf $(OUTPUTDIR)
@@ -94,7 +78,7 @@ endif
 devserver:
 	$(PELICAN) -lr $(INPUTDIR) -o $(OUTPUTDIR) -s $(CONFFILE) $(PELICANOPTS)
 
-publish:
+publish: clean
 	$(PELICAN) $(INPUTDIR) -o $(OUTPUTDIR) -s $(PUBLISHCONF) $(PELICANOPTS)
 
 ssh_upload: publish
@@ -103,7 +87,7 @@ ssh_upload: publish
 rsync_upload: publish
 	rsync -e "ssh -p $(SSH_PORT)" -P -rvzc --cvs-exclude --delete $(OUTPUTDIR)/ $(SSH_USER)@$(SSH_HOST):$(SSH_TARGET_DIR)
 
-github: fresh publish
+github: publish
 	$(GHP_IMPORT) -m "Generate Pelican site" -b $(GITHUB_PAGES_BRANCH) $(OUTPUTDIR)
 	git push origin $(GITHUB_PAGES_BRANCH)
 

@@ -1,6 +1,6 @@
 # Personal website
 
-[Link to website](https://cbcoutinho.github.io/)
+[Link to website](https://blog.coutinho.io/)
 
 ## How to build
 

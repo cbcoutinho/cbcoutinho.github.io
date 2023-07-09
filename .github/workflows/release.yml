@@ -20,8 +20,6 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('./poetry.lock') }}
       - name: Install dependencies
         run: |
-          sudo apt-get update && sudo apt-get install -y --no-install-suggests --no-install-recommends curl python3 jq
-
           curl -sSL https://install.python-poetry.org | python3 -
           poetry install --with dev
       - name: Pelican Publish

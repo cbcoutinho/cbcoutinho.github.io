@@ -1,7 +1,7 @@
 ---
 title: Test
 category: Notes
-<!--status: draft-->
+status: draft
 ---
 
 {% notebook test.ipynb %}

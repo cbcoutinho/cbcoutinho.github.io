@@ -24,5 +24,4 @@ jobs:
           poetry install --with dev
       - name: Pelican Publish
         run: |
-          poetry shell
-          make github
+          poetry run make github

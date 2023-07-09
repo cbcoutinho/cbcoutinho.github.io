@@ -22,6 +22,7 @@ EXTRA_PATH_METADATA = {
     "files/keybase.txt": {"path": "keybase.txt"},
     "files/CNAME": {"path": "CNAME"},
     "files/favicon.ico": {"path": "favicon.ico"},
+    "files/.nojekyll": {"path": ".nojekyll"},
 }
 
 PLUGIN_PATHS = [

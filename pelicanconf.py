@@ -13,7 +13,11 @@ STATIC_PATHS = ["files", "images"]
 
 # This moves the keybase.io proof from a subdirectory to the site root
 #   http://docs.getpelican.com/en/stable/settings.html#metadata
-EXTRA_PATH_METADATA = {"files/keybase.txt": {"path": "keybase.txt"}}
+EXTRA_PATH_METADATA = {
+    "files/keybase.txt": {"path": "keybase.txt"},
+    "files/CNAME": {"path": "CNAME"},
+    "files/favicon.ico": {"path": "favicon.ico"},
+}
 
 PLUGIN_PATHS = [
     # "/home/chris/Software/pelican-plugins",

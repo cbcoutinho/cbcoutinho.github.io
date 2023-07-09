@@ -1,10 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*- #
 from __future__ import unicode_literals
-from pelican_jupyter import markup as nb_markup
+
+import pathlib
 
 AUTHOR = "Chris Coutinho"
-SITENAME = "Chris Coutinho"
+SITENAME = "Chris' blog"
+# SITESUBTITLE = ""
+
+# NOTE: This must stay empty to allow for local development. It's reset in
+# publishconf.py during deployment
 SITEURL = ""
 TIMEZONE = "Europe/Amsterdam"
 
@@ -25,9 +30,8 @@ PLUGIN_PATHS = [
 ]
 
 MARKUP = ("md", "ipynb")
-PLUGIN = [nb_markup]
+PLUGIN = []
 IGNORE_FILES = [".ipynb_checkpoints", "*draft*"]
-
 
 DEFAULT_LANG = "en"
 DEFAULT_DATE = "fs"
@@ -42,10 +46,7 @@ AUTHOR_FEED_RSS = None
 # Blogroll
 LINKS = (
     ("Rotaract Amsterdam", "https://rotaractamsterdam.nl/"),
-    # ("Pelican", "http://getpelican.com/"),
-    # ("Python.org", "http://python.org/"),
-    # ("Jinja2", "http://jinja.pocoo.org/"),
-    # ("You can modify those links in your config file", "#"),
+    ("DataChef", "https://datachef.co"),
 )
 
 # Social widget
@@ -58,3 +59,8 @@ DEFAULT_PAGINATION = 10
 
 # Uncomment following line if you want document-relative URLs when developing
 # RELATIVE_URLS = True
+
+# github.com/pelican-plugins/liquid-tags
+LIQUID_TAGS = ["notebook"]
+
+# EXTRA_HEADER = pathlib.Path("_nb_header.html").read_text(encoding="utf-8")

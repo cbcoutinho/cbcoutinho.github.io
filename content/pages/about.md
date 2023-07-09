@@ -1,16 +1,19 @@
-title: about
+---
+title: About
+---
 
-Hi, I'm Chris, thanks for reaching my website! I started this static
-site to learn more about hosting content on the web, and sharing
-things that I think are interesting.
+Hi, I'm Chris, thanks for reaching my website! I started this static site to
+learn more about hosting content on the web, and sharing things that I think
+are interesting.
 
-I'm currently working as a data engineer at
-[FocusCura](https://www.focuscura.nl), where I work on the Business
-Process Automation team.
+I'm currently working as a data engineer at [DataChef](https://datachef.co), a
+boutique big data consultancy, based in Amsterdam. We are specialists in
+helping modern marketing and sales teams by demystifying data and simplifying
+information for them.
 
-When I'm not working on organizing data in health-care at my day job, you can
-usually find me climbing, dancing, reading, or volunteering with the impactful
-[Rotaract Amsterdam](https://rotaractamsterdam.nl) organization.
+Outside of work, you can usually find me climbing, dancing, reading, or
+volunteering with the [Rotaract Amsterdam](https://rotaractamsterdam.nl)
+organization.
 
 ![selfpic]({static}/images/self.jpg){:height="150px"}
 

@@ -4,7 +4,7 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="generator" content="Pelican" />
-        <title>Test</title>
+        <title>Clojupyter</title>
         <link rel="stylesheet" href="https://blog.coutinho.io/theme/css/main.css" />
         <link href="https://blog.coutinho.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Chris' blog Atom Feed" />
         <meta name="description" content="Notebook pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }..." />
@@ -23,17 +23,17 @@
   <article>
     <header>
       <h1 class="entry-title">
-        <a href="https://blog.coutinho.io/test.html" rel="bookmark"
-           title="Permalink to Test">Test</a></h1>
+        <a href="https://blog.coutinho.io/drafts/clojupyter.html" rel="bookmark"
+           title="Permalink to Clojupyter">Clojupyter</a></h1>
     </header>
 
     <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2023-07-09T22:19:31.106336+02:00">
-                Published: Sun 09 July 2023
+        <abbr class="published" title="2019-01-01T00:00:00+01:00">
+                Published: Tue 01 January 2019
         </abbr>
 		<br />
-        <abbr class="modified" title="2023-07-09T22:19:31.106336+02:00">
+        <abbr class="modified" title="2023-07-09T22:21:50.279327+02:00">
                 Updated: Sun 09 July 2023
         </abbr>
 
@@ -42,9 +42,7 @@
         </address>
 <p>In <a href="https://blog.coutinho.io/category/notes.html">Notes</a>.</p>
 
-</footer><!-- /.post-info -->      <!--status: draft-->
-<hr>
-<!DOCTYPE html>
+</footer><!-- /.post-info -->      <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15266,8 +15264,12 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class=" highlight hl-clojure"><pre><span></span><span class="p">(</span><span class="nf">require</span><span class="w"> </span><span class="o">&#39;</span><span class="p">[</span><span class="nv">clojupyter.display</span><span class="w"> </span><span class="ss">:as</span><span class="w"> </span><span class="nv">display</span><span class="p">]</span>
+<span class="w">         </span><span class="o">&#39;</span><span class="p">[</span><span class="nv">clojupyter.misc.helper</span><span class="w"> </span><span class="ss">:as</span><span class="w"> </span><span class="nv">helper</span><span class="p">])</span>
+<span class="p">(</span><span class="nf">helper/add-dependencies</span><span class="w"> </span><span class="o">&#39;</span><span class="p">[</span><span class="nv">metasoarous/oz</span><span class="w"> </span><span class="s">&quot;1.5.6&quot;</span><span class="p">])</span>
+<span class="p">(</span><span class="nf">helper/add-dependencies</span><span class="w"> </span><span class="o">&#39;</span><span class="p">[</span><span class="nv">incanter</span><span class="w"> </span><span class="s">&quot;1.9.3&quot;</span><span class="p">])</span>
+<span class="p">(</span><span class="nf">require</span><span class="w"> </span><span class="o">&#39;</span><span class="p">[</span><span class="nv">oz.notebook.clojupyter</span><span class="w"> </span><span class="ss">:as</span><span class="w"> </span><span class="nv">oz</span><span class="p">]</span>
+<span class="w">         </span><span class="o">&#39;</span><span class="p">(</span><span class="nf">incanter</span><span class="w"> </span><span class="p">[</span><span class="nv">stats</span><span class="w"> </span><span class="ss">:as</span><span class="w"> </span><span class="nv">stats</span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="nv">charts</span><span class="w"> </span><span class="ss">:as</span><span class="w"> </span><span class="nv">charts</span><span class="p">]))</span>
 </pre></div>
 
      </div>
@@ -15283,7 +15285,12 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+<div class=" highlight hl-clojure"><pre><span></span><span class="p">(</span><span class="nb">println </span><span class="s">&quot;&gt;&gt; should print some text&quot;</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">display/hiccup-html</span>
+<span class="w"> </span><span class="p">[</span><span class="ss">:ul</span>
+<span class="w">  </span><span class="p">[</span><span class="ss">:li</span><span class="w"> </span><span class="s">&quot;a &quot;</span><span class="w"> </span><span class="p">[</span><span class="ss">:i</span><span class="w"> </span><span class="s">&quot;emphatic&quot;</span><span class="p">]</span><span class="w"> </span><span class="s">&quot; idea&quot;</span><span class="p">]</span>
+<span class="w">  </span><span class="p">[</span><span class="ss">:li</span><span class="w"> </span><span class="s">&quot;a &quot;</span><span class="w"> </span><span class="p">[</span><span class="ss">:b</span><span class="w"> </span><span class="s">&quot;bold&quot;</span><span class="p">]</span><span class="w"> </span><span class="s">&quot; idea&quot;</span><span class="p">]</span>
+<span class="w">  </span><span class="p">[</span><span class="ss">:li</span><span class="w"> </span><span class="s">&quot;an &quot;</span><span class="w"> </span><span class="p">[</span><span class="ss">:span</span><span class="w"> </span><span class="p">{</span><span class="ss">:style</span><span class="w"> </span><span class="s">&quot;text-decoration: underline;&quot;</span><span class="p">}</span><span class="w"> </span><span class="s">&quot;important&quot;</span><span class="p">]</span><span class="w"> </span><span class="s">&quot; idea&quot;</span><span class="p">]])</span>
 </pre></div>
 
      </div>
@@ -15299,8 +15306,11 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<div class=" highlight hl-clojure"><pre><span></span><span class="p">(</span><span class="nf">-&gt;</span>
+<span class="w">    </span><span class="p">(</span><span class="nf">charts/histogram</span>
+<span class="w">     </span><span class="p">(</span><span class="nf">stats/sample-normal</span><span class="w"> </span><span class="mi">1000</span><span class="p">)</span>
+<span class="w">     </span><span class="ss">:x-label</span><span class="w"> </span><span class="s">&quot;Sample x value&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">(</span><span class="nf">.createBufferedImage</span><span class="w"> </span><span class="mi">600</span><span class="w"> </span><span class="mi">400</span><span class="p">))</span>
 </pre></div>
 
      </div>
@@ -15316,30 +15326,81 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">circle</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot; Return the position of a point on a circle that</span>
-<span class="sd">    begins at the bottom &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="n">xy</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="n">xy</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+<div class=" highlight hl-clojure"><pre><span></span><span class="p">(</span><span class="nb">-&gt; </span><span class="p">(</span><span class="nf">charts/scatter-plot</span>
+<span class="w">     </span><span class="p">(</span><span class="nf">stats/sample-normal</span><span class="w"> </span><span class="mi">1000</span><span class="p">)</span>
+<span class="w">     </span><span class="p">(</span><span class="nf">stats/sample-normal</span><span class="w"> </span><span class="mi">1000</span><span class="p">)</span>
+<span class="w">     </span><span class="ss">:x-label</span><span class="w"> </span><span class="s">&quot;x&quot;</span><span class="w"> </span><span class="ss">:y-label</span><span class="w"> </span><span class="s">&quot;y&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">(</span><span class="nf">.createBufferedImage</span><span class="w"> </span><span class="mi">600</span><span class="w"> </span><span class="mi">400</span><span class="p">))</span>
+</pre></div>
 
-<span class="k">def</span> <span class="nf">dcircle</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the velocity of the point on a circle as &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">t</span><span class="p">)))</span>
+     </div>
+</div>
+</div>
+</div>
 
-<span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
-<span class="n">p</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="o">*</span><span class="n">circle</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="n">p</span><span class="p">))</span>
-<span class="c1"># ax.plot(*circle(t, xy=[2*np.pi, 1]))</span>
+</div><div  class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-clojure"><pre><span></span><span class="p">(</span><span class="nb">reduce + </span><span class="p">(</span><span class="nb">range </span><span class="mi">100</span><span class="p">))</span>
+</pre></div>
 
-<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">times</span><span class="p">[::</span><span class="mi">5</span><span class="p">]:</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span>
-        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">circle</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">xy</span><span class="o">=</span><span class="n">p</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
-        <span class="n">xy</span><span class="o">=</span><span class="n">circle</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="n">p</span><span class="p">),</span>
-        <span class="n">xytext</span><span class="o">=</span><span class="n">circle</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">xy</span><span class="o">=</span><span class="n">p</span><span class="p">)</span> <span class="o">+</span> <span class="n">dcircle</span><span class="p">(</span><span class="n">t</span><span class="p">),</span>
-        <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span><span class="o">=</span><span class="s1">&#39;&lt;-&#39;</span><span class="p">)</span>
-    <span class="p">)</span>
+     </div>
+</div>
+</div>
+</div>
 
-<span class="c1">#fig.tight_layout()</span>
+</div><div  class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-clojure"><pre><span></span><span class="p">(</span><span class="kd">defn </span><span class="nv">datapt</span><span class="w"> </span><span class="p">[[</span><span class="nv">s</span><span class="w"> </span><span class="nv">n</span><span class="p">]]</span><span class="w"> </span><span class="p">{</span><span class="ss">:Index</span><span class="w"> </span><span class="nv">s</span>,<span class="w"> </span><span class="ss">:Value</span><span class="w"> </span><span class="nv">n</span><span class="p">})</span>
+<span class="p">(</span><span class="kd">defn </span><span class="nv">graph</span><span class="w">  </span><span class="p">[</span><span class="nv">vs</span><span class="p">]</span><span class="w">    </span><span class="p">{</span><span class="ss">:data</span><span class="w"> </span><span class="p">{</span><span class="ss">:values</span><span class="w"> </span><span class="nv">vs</span><span class="p">}</span>,<span class="w"> </span>
+<span class="w">                      </span><span class="ss">:mark</span><span class="w"> </span><span class="ss">:line</span>
+<span class="w">                      </span><span class="ss">:encoding</span><span class="w"> </span><span class="p">{</span><span class="ss">:x</span><span class="w"> </span><span class="p">{</span><span class="ss">:field</span><span class="w"> </span><span class="ss">:Index</span><span class="p">}</span>
+<span class="w">                                 </span><span class="ss">:y</span><span class="w"> </span><span class="p">{</span><span class="ss">:field</span><span class="w"> </span><span class="ss">:Value</span><span class="p">}}})</span>
+<span class="p">(</span><span class="k">def </span><span class="nv">graph-it</span><span class="w"> </span><span class="p">(</span><span class="nb">comp </span><span class="nv">graph</span><span class="w"> </span><span class="p">(</span><span class="nb">partial map </span><span class="nv">datapt</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nb">partial apply map </span><span class="nv">vector</span><span class="p">)))</span><span class="c1">;</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div  class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-clojure"><pre><span></span><span class="p">(</span><span class="kd">defn </span><span class="nv">raw-data</span><span class="w"> </span><span class="p">[]</span><span class="w"> </span><span class="p">(</span><span class="nb">map </span><span class="o">#</span><span class="p">(</span><span class="nb">+ </span><span class="nv">%</span><span class="w"> </span><span class="p">(</span><span class="nb">rand-int </span><span class="mi">25</span><span class="p">))</span><span class="w"> </span><span class="p">(</span><span class="nf">range</span><span class="p">)))</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div  class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-clojure"><pre><span></span><span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">G</span><span class="w"> </span><span class="p">(</span><span class="nf">-&gt;&gt;</span><span class="w"> </span><span class="p">[(</span><span class="nf">range</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nb">take </span><span class="mi">50</span><span class="w"> </span><span class="p">(</span><span class="nf">raw-data</span><span class="p">))]</span><span class="w"> </span><span class="nv">graph-it</span><span class="p">)]</span>
+<span class="w">  </span><span class="p">(</span><span class="nf">display/render-mime</span><span class="w"> </span><span class="ss">:application/vnd.vegalite.v2+json</span><span class="w"> </span><span class="nv">G</span><span class="p">))</span>
 </pre></div>
 
      </div>

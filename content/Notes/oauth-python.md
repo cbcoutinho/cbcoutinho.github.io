@@ -14,11 +14,6 @@ easier to manage identities than span across systems.
 
 [TOC]
 
-# OAuth2/OIDC Authorization
-
-<!--source: https://www.azureblue.io/content/images/2020/10/client-cred-flow-1.png-->
-{% img ../images/client-cred-flow-1.png  "title text" %}
-
 # Authorization in Kafka
 
 Apache Kafka provides an Authorization system based on Access Control Lists
@@ -51,6 +46,11 @@ assuming you're using an OIDC-compliant identity provider (e.g. Azure AD, Okta,
 Keycloak). See the
 [documentation](https://docs.confluent.io/cloud/current/access-management/authenticate/oauth/identity-providers.html)
 for more information
+
+# OAuth2/OIDC Authorization
+
+<!--source: https://www.azureblue.io/content/images/2020/10/client-cred-flow-1.png-->
+{% img ../images/client-cred-flow-1.png  "title text" %}
 
 # OAuth2 in Faust Streaming
 

@@ -1,8 +1,6 @@
----
 Title: Clojupyter
 Date: 2019-01-01
 Category: Notes
-status: draft
----
+status: hidden
 
 {% notebook clojupyter.ipynb %}

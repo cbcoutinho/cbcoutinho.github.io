@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Chris' blog</title><link href="https://blog.coutinho.io/" rel="alternate"></link><link href="https://blog.coutinho.io/feeds/all.atom.xml" rel="self"></link><id>https://blog.coutinho.io/</id><updated>2023-07-10T01:37:12+02:00</updated><entry><title>OAuth2 Kakfa and Python</title><link href="https://blog.coutinho.io/oauth2-kakfa-and-python.html" rel="alternate"></link><published>2023-07-10T00:00:00+02:00</published><updated>2023-07-10T01:37:12+02:00</updated><author><name>Chris Coutinho</name></author><id>tag:blog.coutinho.io,2023-07-10:/oauth2-kakfa-and-python.html</id><summary type="html">&lt;p&gt;This post demonstrates how to utilize OAuth2 in &lt;a href="https://faust-streaming.github.io/faust"&gt;Faust
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Chris' blog</title><link href="https://blog.coutinho.io/" rel="alternate"></link><link href="https://blog.coutinho.io/feeds/all.atom.xml" rel="self"></link><id>https://blog.coutinho.io/</id><updated>2023-07-10T01:44:24+02:00</updated><entry><title>OAuth2 Kakfa and Python</title><link href="https://blog.coutinho.io/oauth2-kakfa-and-python.html" rel="alternate"></link><published>2023-07-10T00:00:00+02:00</published><updated>2023-07-10T01:44:24+02:00</updated><author><name>Chris Coutinho</name></author><id>tag:blog.coutinho.io,2023-07-10:/oauth2-kakfa-and-python.html</id><summary type="html">&lt;p&gt;This post demonstrates how to utilize OAuth2 in &lt;a href="https://faust-streaming.github.io/faust"&gt;Faust
 Streaming&lt;/a&gt; applications. Faust is a
 streaming library for Python. It provides stream/event processing primitives &lt;em&gt;a
 la&lt;/em&gt; Kafka Streams to process Kafka messages in Python.&lt;/p&gt;
@@ -14,14 +14,11 @@ service boundaries a centralized manner. With the introduction of the
 configured to use an external identity provider for authentication, making it
 easier to manage identities than span across systems.&lt;/p&gt;
 &lt;div class="toc"&gt;&lt;span class="toctitle"&gt;Table of Contents&lt;/span&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a href="#oauth2oidc-authorization"&gt;OAuth2/OIDC Authorization&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="#authorization-in-kafka"&gt;Authorization in Kafka&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#oauth2oidc-authorization"&gt;OAuth2/OIDC Authorization&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="#oauth2-in-faust-streaming"&gt;OAuth2 in Faust Streaming&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
-&lt;h1 id="oauth2oidc-authorization"&gt;OAuth2/OIDC Authorization&lt;/h1&gt;
-&lt;!--source: https://www.azureblue.io/content/images/2020/10/client-cred-flow-1.png--&gt;
-&lt;p&gt;&lt;img src="../images/client-cred-flow-1.png" title=""title text"" alt=""title text""&gt;&lt;/p&gt;
 &lt;h1 id="authorization-in-kafka"&gt;Authorization in Kafka&lt;/h1&gt;
 &lt;p&gt;Apache Kafka provides an Authorization system based on Access Control Lists
 (ACLs). Kafka acls are defined in the general format of "Principal P is
@@ -50,6 +47,9 @@ assuming you're using an OIDC-compliant identity provider (e.g. Azure AD, Okta,
 Keycloak). See the
 &lt;a href="https://docs.confluent.io/cloud/current/access-management/authenticate/oauth/identity-providers.html"&gt;documentation&lt;/a&gt;
 for more information&lt;/p&gt;
+&lt;h1 id="oauth2oidc-authorization"&gt;OAuth2/OIDC Authorization&lt;/h1&gt;
+&lt;!--source: https://www.azureblue.io/content/images/2020/10/client-cred-flow-1.png--&gt;
+&lt;p&gt;&lt;img src="../images/client-cred-flow-1.png" title=""title text"" alt=""title text""&gt;&lt;/p&gt;
 &lt;h1 id="oauth2-in-faust-streaming"&gt;OAuth2 in Faust Streaming&lt;/h1&gt;
 &lt;p&gt;Here's an example of a streaming application demonstrating how to connect to a
 Kafka broker over &lt;code&gt;PLAINTEXT&lt;/code&gt;, essentially anonymous and unencrypted. Our

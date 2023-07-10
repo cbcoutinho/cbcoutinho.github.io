@@ -27,7 +27,7 @@
                 Published: Mon 10 July 2023
         </abbr>
 		<br />
-        <abbr class="modified" title="2023-07-10T01:37:12.560142+02:00">
+        <abbr class="modified" title="2023-07-10T01:44:24.642685+02:00">
                 Updated: Mon 10 July 2023
         </abbr>
 
@@ -46,14 +46,11 @@ service boundaries a centralized manner. With the introduction of the
 configured to use an external identity provider for authentication, making it
 easier to manage identities than span across systems.</p>
 <div class="toc"><span class="toctitle">Table of Contents</span><ul>
-<li><a href="#oauth2oidc-authorization">OAuth2/OIDC Authorization</a></li>
 <li><a href="#authorization-in-kafka">Authorization in Kafka</a></li>
+<li><a href="#oauth2oidc-authorization">OAuth2/OIDC Authorization</a></li>
 <li><a href="#oauth2-in-faust-streaming">OAuth2 in Faust Streaming</a></li>
 </ul>
 </div>
-<h1 id="oauth2oidc-authorization">OAuth2/OIDC Authorization</h1>
-<!--source: https://www.azureblue.io/content/images/2020/10/client-cred-flow-1.png-->
-<p><img src="../images/client-cred-flow-1.png" title=""title text"" alt=""title text""></p>
 <h1 id="authorization-in-kafka">Authorization in Kafka</h1>
 <p>Apache Kafka provides an Authorization system based on Access Control Lists
 (ACLs). Kafka acls are defined in the general format of "Principal P is
@@ -82,6 +79,9 @@ assuming you're using an OIDC-compliant identity provider (e.g. Azure AD, Okta,
 Keycloak). See the
 <a href="https://docs.confluent.io/cloud/current/access-management/authenticate/oauth/identity-providers.html">documentation</a>
 for more information</p>
+<h1 id="oauth2oidc-authorization">OAuth2/OIDC Authorization</h1>
+<!--source: https://www.azureblue.io/content/images/2020/10/client-cred-flow-1.png-->
+<p><img src="../images/client-cred-flow-1.png" title=""title text"" alt=""title text""></p>
 <h1 id="oauth2-in-faust-streaming">OAuth2 in Faust Streaming</h1>
 <p>Here's an example of a streaming application demonstrating how to connect to a
 Kafka broker over <code>PLAINTEXT</code>, essentially anonymous and unencrypted. Our

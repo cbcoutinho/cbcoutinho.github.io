@@ -1,5 +1,6 @@
 title: Building a custom provider using the Terraform Provider Framework
 date: 2023-07-11
+status: draft
 
 ```go
 package provider

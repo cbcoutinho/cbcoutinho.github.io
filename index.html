@@ -21,13 +21,13 @@
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="https://blog.coutinho.io/oauth2-kakfa-and-python.html">OAuth2 Kakfa and Python</a></h1>
+                    <h1 class="entry-title"><a href="https://blog.coutinho.io/building-a-custom-provider-using-the-terraform-provider-framework.html">Building a custom provider using the Terraform Provider Framework</a></h1>
 <footer class="post-info">
-        <abbr class="published" title="2023-07-10T00:00:00+02:00">
-                Published: Mon 10 July 2023
+        <abbr class="published" title="2023-07-11T00:00:00+02:00">
+                Published: Tue 11 July 2023
         </abbr>
 		<br />
-        <abbr class="modified" title="2023-07-10T01:44:24.642685+02:00">
+        <abbr class="modified" title="2023-07-10T02:46:10.968168+02:00">
                 Updated: Mon 10 July 2023
         </abbr>
 
@@ -36,104 +36,304 @@
         </address>
 <p>In <a href="https://blog.coutinho.io/category/notes.html">Notes</a>.</p>
 
-</footer><!-- /.post-info --><p>This post demonstrates how to utilize OAuth2 in <a href="https://faust-streaming.github.io/faust">Faust
+</footer><!-- /.post-info --><div class="highlight"><pre><span></span><code><span class="kn">package</span><span class="w"> </span><span class="nx">provider</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="s">&quot;context&quot;</span>
+<span class="w">    </span><span class="s">&quot;os&quot;</span>
+
+<span class="w">    </span><span class="s">&quot;github.com/hashicorp/terraform-plugin-framework/datasource&quot;</span>
+<span class="w">    </span><span class="s">&quot;github.com/hashicorp/terraform-plugin-framework/path&quot;</span>
+<span class="w">    </span><span class="s">&quot;github.com/hashicorp/terraform-plugin-framework/provider&quot;</span>
+<span class="w">    </span><span class="s">&quot;github.com/hashicorp/terraform-plugin-framework/provider/schema&quot;</span>
+<span class="w">    </span><span class="s">&quot;github.com/hashicorp/terraform-plugin-framework/resource&quot;</span>
+<span class="w">    </span><span class="s">&quot;github.com/hashicorp/terraform-plugin-framework/types&quot;</span>
+<span class="w">    </span><span class="s">&quot;github.com/hashicorp/terraform-plugin-log/tflog&quot;</span>
+<span class="p">)</span>
+
+<span class="c1">// Ensure the implementation satisfies the expected interfaces.</span>
+<span class="kd">var</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="nx">_</span><span class="w"> </span><span class="nx">provider</span><span class="p">.</span><span class="nx">Provider</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">longshipProvider</span><span class="p">{}</span>
+<span class="p">)</span>
+
+<span class="c1">// New is a helper function to simplify provider server and testing implementation.</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">New</span><span class="p">(</span><span class="nx">version</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="nx">provider</span><span class="p">.</span><span class="nx">Provider</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="nx">provider</span><span class="p">.</span><span class="nx">Provider</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">longshipProvider</span><span class="p">{</span>
+<span class="w">            </span><span class="nx">version</span><span class="p">:</span><span class="w"> </span><span class="nx">version</span><span class="p">,</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// longshipProvider is the provider implementation.</span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">longshipProvider</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// version is set to the provider version on release, &quot;dev&quot; when the</span>
+<span class="w">    </span><span class="c1">// provider is built and ran locally, and &quot;test&quot; when running acceptance</span>
+<span class="w">    </span><span class="c1">// testing.</span>
+<span class="w">    </span><span class="nx">version</span><span class="w"> </span><span class="kt">string</span>
+<span class="p">}</span>
+
+<span class="c1">// Metadata returns the provider type name.</span>
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">p</span><span class="w"> </span><span class="o">*</span><span class="nx">longshipProvider</span><span class="p">)</span><span class="w"> </span><span class="nx">Metadata</span><span class="p">(</span><span class="nx">_</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="nx">provider</span><span class="p">.</span><span class="nx">MetadataRequest</span><span class="p">,</span><span class="w"> </span><span class="nx">resp</span><span class="w"> </span><span class="o">*</span><span class="nx">provider</span><span class="p">.</span><span class="nx">MetadataResponse</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">resp</span><span class="p">.</span><span class="nx">TypeName</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;longship&quot;</span>
+<span class="w">    </span><span class="nx">resp</span><span class="p">.</span><span class="nx">Version</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">p</span><span class="p">.</span><span class="nx">version</span>
+<span class="p">}</span>
+
+<span class="kd">type</span><span class="w"> </span><span class="nx">longshipProviderModel</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">Host</span><span class="w">           </span><span class="nx">types</span><span class="p">.</span><span class="nx">String</span><span class="w"> </span><span class="s">`tfsdk:&quot;host&quot;`</span>
+<span class="w">    </span><span class="nx">TenantKey</span><span class="w">      </span><span class="nx">types</span><span class="p">.</span><span class="nx">String</span><span class="w"> </span><span class="s">`tfsdk:&quot;tenant_key&quot;`</span>
+<span class="w">    </span><span class="nx">ApplicationKey</span><span class="w"> </span><span class="nx">types</span><span class="p">.</span><span class="nx">String</span><span class="w"> </span><span class="s">`tfsdk:&quot;application_key&quot;`</span>
+<span class="p">}</span>
+
+<span class="c1">// Schema defines the provider-level schema for configuration data.</span>
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">p</span><span class="w"> </span><span class="o">*</span><span class="nx">longshipProvider</span><span class="p">)</span><span class="w"> </span><span class="nx">Schema</span><span class="p">(</span><span class="nx">_</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="nx">provider</span><span class="p">.</span><span class="nx">SchemaRequest</span><span class="p">,</span><span class="w"> </span><span class="nx">resp</span><span class="w"> </span><span class="o">*</span><span class="nx">provider</span><span class="p">.</span><span class="nx">SchemaResponse</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">resp</span><span class="p">.</span><span class="nx">Schema</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">schema</span><span class="p">.</span><span class="nx">Schema</span><span class="p">{</span>
+<span class="w">        </span><span class="nx">Attributes</span><span class="p">:</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="nx">schema</span><span class="p">.</span><span class="nx">Attribute</span><span class="p">{</span>
+<span class="w">            </span><span class="s">&quot;host&quot;</span><span class="p">:</span><span class="w"> </span><span class="nx">schema</span><span class="p">.</span><span class="nx">StringAttribute</span><span class="p">{</span>
+<span class="w">                </span><span class="nx">Description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;URI for Longship API. May also be provided via LONGSHIP_HOST environment variable.&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nx">Optional</span><span class="p">:</span><span class="w">    </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="s">&quot;tenant_key&quot;</span><span class="p">:</span><span class="w"> </span><span class="nx">schema</span><span class="p">.</span><span class="nx">StringAttribute</span><span class="p">{</span>
+<span class="w">                </span><span class="nx">Description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Tenant key for Longship API. May also be provided via LONGSHIP_TENANT_KEY environment variable.&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nx">Optional</span><span class="p">:</span><span class="w">    </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">                </span><span class="nx">Sensitive</span><span class="p">:</span><span class="w">   </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="s">&quot;application_key&quot;</span><span class="p">:</span><span class="w"> </span><span class="nx">schema</span><span class="p">.</span><span class="nx">StringAttribute</span><span class="p">{</span>
+<span class="w">                </span><span class="nx">Description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Application key for Longship API. May also be provided via LONGSHIP_APPLICATION_KEY environment variable.&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nx">Optional</span><span class="p">:</span><span class="w">    </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">                </span><span class="nx">Sensitive</span><span class="p">:</span><span class="w">   </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// Configure prepares a Longship API client for data sources and resources.</span>
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">p</span><span class="w"> </span><span class="o">*</span><span class="nx">longshipProvider</span><span class="p">)</span><span class="w"> </span><span class="nx">Configure</span><span class="p">(</span><span class="nx">ctx</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span><span class="w"> </span><span class="nx">req</span><span class="w"> </span><span class="nx">provider</span><span class="p">.</span><span class="nx">ConfigureRequest</span><span class="p">,</span><span class="w"> </span><span class="nx">resp</span><span class="w"> </span><span class="o">*</span><span class="nx">provider</span><span class="p">.</span><span class="nx">ConfigureResponse</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="nx">tflog</span><span class="p">.</span><span class="nx">Debug</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Configuring Longship client&quot;</span><span class="p">)</span>
+
+<span class="w">    </span><span class="c1">// Retrieve provider data from configuration</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">config</span><span class="w"> </span><span class="nx">longshipProviderModel</span>
+<span class="w">    </span><span class="nx">diags</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">req</span><span class="p">.</span><span class="nx">Config</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">config</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">resp</span><span class="p">.</span><span class="nx">Diagnostics</span><span class="p">.</span><span class="nx">Append</span><span class="p">(</span><span class="nx">diags</span><span class="o">...</span><span class="p">)</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">resp</span><span class="p">.</span><span class="nx">Diagnostics</span><span class="p">.</span><span class="nx">HasError</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// If practitioner provided a configuration value for any of the</span>
+<span class="w">    </span><span class="c1">// attributes, it must be a known value.</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">config</span><span class="p">.</span><span class="nx">Host</span><span class="p">.</span><span class="nx">IsUnknown</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">resp</span><span class="p">.</span><span class="nx">Diagnostics</span><span class="p">.</span><span class="nx">AddAttributeError</span><span class="p">(</span>
+<span class="w">            </span><span class="nx">path</span><span class="p">.</span><span class="nx">Root</span><span class="p">(</span><span class="s">&quot;host&quot;</span><span class="p">),</span>
+<span class="w">            </span><span class="s">&quot;Unknown Longship API Host&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="s">&quot;The provider cannot create the Longship API client as there is an unknown configuration value for the Longship API host. &quot;</span><span class="o">+</span>
+<span class="w">                </span><span class="s">&quot;Either target apply the source of the value first, set the value statically in the configuration, or use the LONGSHIP_HOST environment variable.&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">config</span><span class="p">.</span><span class="nx">TenantKey</span><span class="p">.</span><span class="nx">IsUnknown</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">resp</span><span class="p">.</span><span class="nx">Diagnostics</span><span class="p">.</span><span class="nx">AddAttributeError</span><span class="p">(</span>
+<span class="w">            </span><span class="nx">path</span><span class="p">.</span><span class="nx">Root</span><span class="p">(</span><span class="s">&quot;tenant_key&quot;</span><span class="p">),</span>
+<span class="w">            </span><span class="s">&quot;Unknown Longship API TenantKey&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="s">&quot;The provider cannot create the Longship API client as there is an unknown configuration value for the Longship API tenantKey. &quot;</span><span class="o">+</span>
+<span class="w">                </span><span class="s">&quot;Either target apply the source of the value first, set the value statically in the configuration, or use the LONGSHIP_TENANT_KEY environment variable.&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">config</span><span class="p">.</span><span class="nx">ApplicationKey</span><span class="p">.</span><span class="nx">IsUnknown</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">resp</span><span class="p">.</span><span class="nx">Diagnostics</span><span class="p">.</span><span class="nx">AddAttributeError</span><span class="p">(</span>
+<span class="w">            </span><span class="nx">path</span><span class="p">.</span><span class="nx">Root</span><span class="p">(</span><span class="s">&quot;application_key&quot;</span><span class="p">),</span>
+<span class="w">            </span><span class="s">&quot;Unknown Longship API ApplicationKey&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="s">&quot;The provider cannot create the Longship API client as there is an unknown configuration value for the Longship API applicationKey. &quot;</span><span class="o">+</span>
+<span class="w">                </span><span class="s">&quot;Either target apply the source of the value first, set the value statically in the configuration, or use the LONGSHIP_APPLICATION_KEY environment variable.&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">resp</span><span class="p">.</span><span class="nx">Diagnostics</span><span class="p">.</span><span class="nx">HasError</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Default values to environment variables, but override</span>
+<span class="w">    </span><span class="c1">// with Terraform configuration value if set.</span>
+
+<span class="w">    </span><span class="nx">host</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">Getenv</span><span class="p">(</span><span class="s">&quot;LONGSHIP_HOST&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">tenantKey</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">Getenv</span><span class="p">(</span><span class="s">&quot;LONGSHIP_TENANT_KEY&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">applicationKey</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">Getenv</span><span class="p">(</span><span class="s">&quot;LONGSHIP_APPLICATION_KEY&quot;</span><span class="p">)</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">!</span><span class="nx">config</span><span class="p">.</span><span class="nx">Host</span><span class="p">.</span><span class="nx">IsNull</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">host</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">config</span><span class="p">.</span><span class="nx">Host</span><span class="p">.</span><span class="nx">ValueString</span><span class="p">()</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">!</span><span class="nx">config</span><span class="p">.</span><span class="nx">TenantKey</span><span class="p">.</span><span class="nx">IsNull</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">tenantKey</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">config</span><span class="p">.</span><span class="nx">TenantKey</span><span class="p">.</span><span class="nx">ValueString</span><span class="p">()</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">!</span><span class="nx">config</span><span class="p">.</span><span class="nx">ApplicationKey</span><span class="p">.</span><span class="nx">IsNull</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">applicationKey</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">config</span><span class="p">.</span><span class="nx">ApplicationKey</span><span class="p">.</span><span class="nx">ValueString</span><span class="p">()</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// If any of the expected configurations are missing, return</span>
+<span class="w">    </span><span class="c1">// errors with provider-specific guidance.</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">host</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">resp</span><span class="p">.</span><span class="nx">Diagnostics</span><span class="p">.</span><span class="nx">AddAttributeError</span><span class="p">(</span>
+<span class="w">            </span><span class="nx">path</span><span class="p">.</span><span class="nx">Root</span><span class="p">(</span><span class="s">&quot;host&quot;</span><span class="p">),</span>
+<span class="w">            </span><span class="s">&quot;Missing Longship API Host&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="s">&quot;The provider cannot create the Longship API client as there is a missing or empty value for the Longship API host. &quot;</span><span class="o">+</span>
+<span class="w">                </span><span class="s">&quot;Set the host value in the configuration or use the LONGSHIP_HOST environment variable. &quot;</span><span class="o">+</span>
+<span class="w">                </span><span class="s">&quot;If either is already set, ensure the value is not empty.&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">tenantKey</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">resp</span><span class="p">.</span><span class="nx">Diagnostics</span><span class="p">.</span><span class="nx">AddAttributeError</span><span class="p">(</span>
+<span class="w">            </span><span class="nx">path</span><span class="p">.</span><span class="nx">Root</span><span class="p">(</span><span class="s">&quot;tenantKey&quot;</span><span class="p">),</span>
+<span class="w">            </span><span class="s">&quot;Missing Longship API Tenant Key&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="s">&quot;The provider cannot create the Longship API client as there is a missing or empty value for the Longship API Tenant Key. &quot;</span><span class="o">+</span>
+<span class="w">                </span><span class="s">&quot;Set the tenant_key value in the configuration or use the LONGSHIP_TENANT_KEY environment variable. &quot;</span><span class="o">+</span>
+<span class="w">                </span><span class="s">&quot;If either is already set, ensure the value is not empty.&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">applicationKey</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">resp</span><span class="p">.</span><span class="nx">Diagnostics</span><span class="p">.</span><span class="nx">AddAttributeError</span><span class="p">(</span>
+<span class="w">            </span><span class="nx">path</span><span class="p">.</span><span class="nx">Root</span><span class="p">(</span><span class="s">&quot;applicationKey&quot;</span><span class="p">),</span>
+<span class="w">            </span><span class="s">&quot;Missing Longship API Application Key&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="s">&quot;The provider cannot create the Longship API client as there is a missing or empty value for the Longship API Application Key. &quot;</span><span class="o">+</span>
+<span class="w">                </span><span class="s">&quot;Set the application_key value in the configuration or use the LONGSHIP_APPLICATION_KEY environment variable. &quot;</span><span class="o">+</span>
+<span class="w">                </span><span class="s">&quot;If either is already set, ensure the value is not empty.&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">resp</span><span class="p">.</span><span class="nx">Diagnostics</span><span class="p">.</span><span class="nx">HasError</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nx">ctx</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">tflog</span><span class="p">.</span><span class="nx">SetField</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;longship_host&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">host</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">ctx</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">tflog</span><span class="p">.</span><span class="nx">SetField</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;longship_tenant_key&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">tenantKey</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">ctx</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">tflog</span><span class="p">.</span><span class="nx">SetField</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;longship_application_key&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">applicationKey</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">ctx</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">tflog</span><span class="p">.</span><span class="nx">MaskFieldValuesWithFieldKeys</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;longship_tenant_key&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">ctx</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">tflog</span><span class="p">.</span><span class="nx">MaskFieldValuesWithFieldKeys</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;longship_application_key&quot;</span><span class="p">)</span>
+
+<span class="w">    </span><span class="nx">tflog</span><span class="p">.</span><span class="nx">Debug</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Creating Longship client&quot;</span><span class="p">)</span>
+
+<span class="w">    </span><span class="c1">// Create a new Longship client using the configuration values</span>
+<span class="w">    </span><span class="nx">client</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">NewClient</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">host</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">tenantKey</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">applicationKey</span><span class="p">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">resp</span><span class="p">.</span><span class="nx">Diagnostics</span><span class="p">.</span><span class="nx">AddError</span><span class="p">(</span>
+<span class="w">            </span><span class="s">&quot;Unable to Create Longship API Client&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="s">&quot;An unexpected error occurred when creating the Longship API client. &quot;</span><span class="o">+</span>
+<span class="w">                </span><span class="s">&quot;If the error is not clear, please contact the provider developers.\n\n&quot;</span><span class="o">+</span>
+<span class="w">                </span><span class="s">&quot;Longship Client Error: &quot;</span><span class="o">+</span><span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">(),</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">        </span><span class="k">return</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Make the Longship client available during DataSource and Resource</span>
+<span class="w">    </span><span class="c1">// type Configure methods.</span>
+<span class="w">    </span><span class="nx">resp</span><span class="p">.</span><span class="nx">DataSourceData</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">client</span>
+<span class="w">    </span><span class="nx">resp</span><span class="p">.</span><span class="nx">ResourceData</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">client</span>
+
+<span class="w">    </span><span class="nx">tflog</span><span class="p">.</span><span class="nx">Info</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Configured Longship client&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">any</span><span class="p">{</span><span class="s">&quot;success&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">})</span>
+<span class="p">}</span>
+
+<span class="c1">// DataSources defines the data sources implemented in the provider.</span>
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">p</span><span class="w"> </span><span class="o">*</span><span class="nx">longshipProvider</span><span class="p">)</span><span class="w"> </span><span class="nx">DataSources</span><span class="p">(</span><span class="nx">_</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span><span class="w"> </span><span class="p">[]</span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="nx">datasource</span><span class="p">.</span><span class="nx">DataSource</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">[]</span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="nx">datasource</span><span class="p">.</span><span class="nx">DataSource</span><span class="p">{</span>
+<span class="w">        </span><span class="nx">NewChargepointsDataSource</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">NewWebhooksDataSource</span><span class="p">,</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// Resources defines the resources implemented in the provider.</span>
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">p</span><span class="w"> </span><span class="o">*</span><span class="nx">longshipProvider</span><span class="p">)</span><span class="w"> </span><span class="nx">Resources</span><span class="p">(</span><span class="nx">_</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span><span class="w"> </span><span class="p">[]</span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="nx">resource</span><span class="p">.</span><span class="nx">Resource</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">[]</span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="nx">resource</span><span class="p">.</span><span class="nx">Resource</span><span class="p">{</span>
+<span class="w">        </span><span class="nx">NewWebhookResource</span><span class="p">,</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>                </article>
+            </aside><!-- /#featured -->
+                <section id="content" class="body">
+                    <h1>Other articles</h1>
+                    <hr />
+                    <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="https://blog.coutinho.io/test.html" rel="bookmark"
+                           title="Permalink to Test">Test</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2023-07-10T02:46:10.968168+02:00">
+                Published: Mon 10 July 2023
+        </abbr>
+		<br />
+        <abbr class="modified" title="2023-07-10T02:46:10.968168+02:00">
+                Updated: Mon 10 July 2023
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="https://blog.coutinho.io/author/chris-coutinho.html">Chris Coutinho</a>
+        </address>
+<p>In <a href="https://blog.coutinho.io/category/notes.html">Notes</a>.</p>
+
+</footer><!-- /.post-info -->                <!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Notebook</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+
+
+
+
+<style type="text/css">
+    pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.highlight .hll { background-color …</style></meta></head></html>
+                <a class="readmore" href="https://blog.coutinho.io/test.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="https://blog.coutinho.io/oauth2-kakfa-and-python.html" rel="bookmark"
+                           title="Permalink to OAuth2 Kakfa and Python">OAuth2 Kakfa and Python</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2023-07-10T00:00:00+02:00">
+                Published: Mon 10 July 2023
+        </abbr>
+		<br />
+        <abbr class="modified" title="2023-07-10T02:46:10.968168+02:00">
+                Updated: Mon 10 July 2023
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="https://blog.coutinho.io/author/chris-coutinho.html">Chris Coutinho</a>
+        </address>
+<p>In <a href="https://blog.coutinho.io/category/notes.html">Notes</a>.</p>
+
+</footer><!-- /.post-info -->                <p>This post demonstrates how to utilize OAuth2 in <a href="https://faust-streaming.github.io/faust">Faust
 Streaming</a> applications. Faust is a
 streaming library for Python. It provides stream/event processing primitives <em>a
 la</em> Kafka Streams to process Kafka messages in Python.</p>
 <p>Organizations are utilizing OAuth2 for managing federated identities across
-service boundaries a centralized manner. With the introduction of the
-<code>OAUTHBEARER</code> SASL mechanism in Kafka 2.0.0, both brokers and clients can be
-configured to use an external identity provider for authentication, making it
-easier to manage identities than span across systems.</p>
-<div class="toc"><span class="toctitle">Table of Contents</span><ul>
-<li><a href="#authorization-in-kafka">Authorization in Kafka</a></li>
-<li><a href="#oauth2oidc-authorization">OAuth2/OIDC Authorization</a></li>
-<li><a href="#oauth2-in-faust-streaming">OAuth2 in Faust Streaming</a></li>
-</ul>
-</div>
-<h1 id="authorization-in-kafka">Authorization in Kafka</h1>
-<p>Apache Kafka provides an Authorization system based on Access Control Lists
-(ACLs). Kafka acls are defined in the general format of "Principal P is
-[Allowed/Denied] Operation O From Host H On Resource R". You can read more
-about the acl structure on
-<a href="https://cwiki.apache.org/confluence/display/KAFKA/KIP-11+-+Authorization+Interface">KIP-11</a>.</p>
-<p>In addition to SSL encryption, Kafka supports multiple <em>authorization
-mechanisms</em> via the Simple Authentication and Security Layer (SASL) to enable
-authentication via third-party servers. This enables Kafka clusters to utilize
-industry-standard identity providers for all broker and client authentication
-requests.</p>
-<p>Confluent Cloud currently supports the following authorization mechanisms:</p>
-<ul>
-<li><code>GSSAPI</code> (Kerberos)</li>
-<li><code>PLAIN</code> (Username/Password)</li>
-<li><code>SCRAM-SHA</code> (Zookeeper)</li>
-<li><code>OAUTHBEARER</code> (OAuth server)</li>
-</ul>
-<p>See the Confluent documentation on <a href="https://developer.confluent.io/learn-kafka/security/authentication-ssl-and-sasl-ssl/#enabling-sasl-ssl-for-kafka">Enabling SASL SSL for
-Kafka</a>
-for more information.</p>
-<p>The <code>OAUTHBEARER</code> security mechanism enables a Kafka cluster to utilize a
-third-party identity provider for authentication. In the case of Confluent
-Cloud, setting up an external identity provider is very straight forward,
-assuming you're using an OIDC-compliant identity provider (e.g. Azure AD, Okta,
-Keycloak). See the
-<a href="https://docs.confluent.io/cloud/current/access-management/authenticate/oauth/identity-providers.html">documentation</a>
-for more information</p>
-<h1 id="oauth2oidc-authorization">OAuth2/OIDC Authorization</h1>
-<!--source: https://www.azureblue.io/content/images/2020/10/client-cred-flow-1.png-->
-<p><img src="../images/client-cred-flow-1.png" title=""title text"" alt=""title text""></p>
-<h1 id="oauth2-in-faust-streaming">OAuth2 in Faust Streaming</h1>
-<p>Here's an example of a streaming application demonstrating how to connect to a
-Kafka broker over <code>PLAINTEXT</code>, essentially anonymous and unencrypted. Our
-client is assuming all messages adhere to the <code>Order</code> schema.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">faust</span>
-
-<span class="n">app</span> <span class="o">=</span> <span class="n">faust</span><span class="o">.</span><span class="n">App</span><span class="p">(</span><span class="s2">&quot;myapp&quot;</span><span class="p">,</span> <span class="n">broker</span><span class="o">=</span><span class="s2">&quot;kafka://localhost&quot;</span><span class="p">)</span>
-
-<span class="k">class</span> <span class="nc">Order</span><span class="p">(</span><span class="n">faust</span><span class="o">.</span><span class="n">Record</span><span class="p">):</span>
-    <span class="n">account_id</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="n">amount</span><span class="p">:</span> <span class="nb">int</span>
-
-<span class="nd">@app</span><span class="o">.</span><span class="n">agent</span><span class="p">(</span><span class="n">value_type</span><span class="o">=</span><span class="n">Order</span><span class="p">)</span>
-<span class="k">async</span> <span class="k">def</span> <span class="nf">order</span><span class="p">(</span><span class="n">orders</span><span class="p">):</span>
-    <span class="k">async</span> <span class="k">for</span> <span class="n">order</span> <span class="ow">in</span> <span class="n">orders</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Order for </span><span class="si">{</span><span class="n">order</span><span class="o">.</span><span class="n">account_id</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">order</span><span class="o">.</span><span class="n">amount</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</code></pre></div>
-
-<p>Faust recently introduced a new authorization mechanism to support
-<code>OAUTHBEARER</code> authentication in <code>v1.5.0</code>, enabling Faust Streaming workers to
-authenticate to a Kafka broker configured with an identity provider using
-OAuth2 Bearer tokens.</p>
-<p>Using <code>OAUTHBEARER</code> broker credentials requires that we setup at least a
-default SSL context, and provide an instance of <code>AbstractTokenProvider</code> to the
-<code>faust.App</code> during configuration. The new <code>faust.OAuthCredentials</code> class
-supports a single <code>oauth_cb</code> attribute for an instance of
-<code>AbstractTokenProvider</code>, which is a class with a single asynchronous method for
-retrieving the bearer token. Clients are responsible for managing the entire
-token life cycle, such as handling token refreshes, etc.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">faust</span>
-<span class="kn">from</span> <span class="nn">aiokafka.conn</span> <span class="kn">import</span> <span class="n">AbstractTokenProvider</span>
-<span class="kn">from</span> <span class="nn">aiokafka.helpers</span> <span class="kn">import</span> <span class="n">create_ssl_context</span>
-
-<span class="k">class</span> <span class="nc">CustomTokenProvider</span><span class="p">(</span><span class="n">AbstractTokenProvider</span><span class="p">):</span>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">token</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="o">...</span>
-
-<span class="n">broker_credentials</span> <span class="o">=</span> <span class="n">faust</span><span class="o">.</span><span class="n">OAuthCredentials</span><span class="p">(</span>
-    <span class="n">oauth_cb</span><span class="o">=</span><span class="n">CustomTokenProvider</span><span class="p">(),</span>
-    <span class="n">ssl_context</span><span class="o">=</span><span class="n">create_ssl_context</span><span class="p">(),</span>
-<span class="p">)</span>
-
-<span class="n">app</span> <span class="o">=</span> <span class="n">faust</span><span class="o">.</span><span class="n">App</span><span class="p">(</span>
-    <span class="s2">&quot;myapp&quot;</span><span class="p">,</span>
-    <span class="n">broker</span><span class="o">=</span><span class="n">KAFKA_BROKER</span><span class="p">,</span>
-    <span class="n">broker_credentials</span><span class="o">=</span><span class="n">broker_credentials</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="c1"># Setting up Model and Agents same as above.</span>
-<span class="c1"># ...</span>
-</code></pre></div>                </article>
-            </aside><!-- /#featured -->
+service boundaries a centralized manner. With the …</p>
+                <a class="readmore" href="https://blog.coutinho.io/oauth2-kakfa-and-python.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+                </ol><!-- /#posts-list -->
+                </section><!-- /#content -->
         <section id="extras" class="body">
                 <div class="blogroll">
                         <h2>links</h2>

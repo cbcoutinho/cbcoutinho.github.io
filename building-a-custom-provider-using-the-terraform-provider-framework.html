@@ -4,9 +4,10 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="generator" content="Pelican" />
-        <title>Chris' blog - Notes</title>
+        <title>Building a custom provider using the Terraform Provider Framework</title>
         <link rel="stylesheet" href="https://blog.coutinho.io/theme/css/main.css" />
         <link href="https://blog.coutinho.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Chris' blog Atom Feed" />
+        <meta name="description" content="package provider import ( "context" "os" "github.com/hashicorp/terraform-plugin-framework/datasource"..." />
 </head>
 
 <body id="index" class="home">
@@ -18,10 +19,15 @@
                     <li class="active"><a href="https://blog.coutinho.io/category/notes.html">Notes</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="https://blog.coutinho.io/building-a-custom-provider-using-the-terraform-provider-framework.html" rel="bookmark"
+           title="Permalink to Building a custom provider using the Terraform Provider Framework">Building a custom provider using the Terraform Provider Framework</a></h1>
+    </header>
 
-            <aside id="featured" class="body">
-                <article>
-                    <h1 class="entry-title"><a href="https://blog.coutinho.io/building-a-custom-provider-using-the-terraform-provider-framework.html">Building a custom provider using the Terraform Provider Framework</a></h1>
+    <div class="entry-content">
 <footer class="post-info">
         <abbr class="published" title="2023-07-11T00:00:00+02:00">
                 Published: Tue 11 July 2023
@@ -36,7 +42,7 @@
         </address>
 <p>In <a href="https://blog.coutinho.io/category/notes.html">Notes</a>.</p>
 
-</footer><!-- /.post-info --><div class="highlight"><pre><span></span><code><span class="kn">package</span><span class="w"> </span><span class="nx">provider</span>
+</footer><!-- /.post-info -->      <div class="highlight"><pre><span></span><code><span class="kn">package</span><span class="w"> </span><span class="nx">provider</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="s">&quot;context&quot;</span>
@@ -253,87 +259,11 @@
 <span class="w">        </span><span class="nx">NewWebhookResource</span><span class="p">,</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
-</code></pre></div>                </article>
-            </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <hr />
-                    <ol id="posts-list" class="hfeed">
+</code></pre></div>
+    </div><!-- /.entry-content -->
 
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="https://blog.coutinho.io/test.html" rel="bookmark"
-                           title="Permalink to Test">Test</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2023-07-10T02:46:10.968168+02:00">
-                Published: Mon 10 July 2023
-        </abbr>
-		<br />
-        <abbr class="modified" title="2023-07-10T02:46:10.968168+02:00">
-                Updated: Mon 10 July 2023
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="https://blog.coutinho.io/author/chris-coutinho.html">Chris Coutinho</a>
-        </address>
-<p>In <a href="https://blog.coutinho.io/category/notes.html">Notes</a>.</p>
-
-</footer><!-- /.post-info -->                <!DOCTYPE html>
-<html>
-<head><meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Notebook</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
-
-
-
-
-<style type="text/css">
-    pre { line-height: 125%; }
-td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
-span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
-td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
-span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
-.highlight .hll { background-color …</style></meta></head></html>
-                <a class="readmore" href="https://blog.coutinho.io/test.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="https://blog.coutinho.io/oauth2-kakfa-and-python.html" rel="bookmark"
-                           title="Permalink to OAuth2 Kakfa and Python">OAuth2 Kakfa and Python</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2023-07-10T00:00:00+02:00">
-                Published: Mon 10 July 2023
-        </abbr>
-		<br />
-        <abbr class="modified" title="2023-07-10T02:46:10.968168+02:00">
-                Updated: Mon 10 July 2023
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="https://blog.coutinho.io/author/chris-coutinho.html">Chris Coutinho</a>
-        </address>
-<p>In <a href="https://blog.coutinho.io/category/notes.html">Notes</a>.</p>
-
-</footer><!-- /.post-info -->                <p>This post demonstrates how to utilize OAuth2 in <a href="https://faust-streaming.github.io/faust">Faust
-Streaming</a> applications. Faust is a
-streaming library for Python. It provides stream/event processing primitives <em>a
-la</em> Kafka Streams to process Kafka messages in Python.</p>
-<p>Organizations are utilizing OAuth2 for managing federated identities across
-service boundaries a centralized manner. With the …</p>
-                <a class="readmore" href="https://blog.coutinho.io/oauth2-kakfa-and-python.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-                </ol><!-- /#posts-list -->
-                </section><!-- /#content -->
+  </article>
+</section>
         <section id="extras" class="body">
                 <div class="blogroll">
                         <h2>links</h2>

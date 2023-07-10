@@ -6,10 +6,11 @@ Streaming](https://faust-streaming.github.io/faust) applications. Faust is a
 streaming library for Python. It provides stream/event processing primitives _a
 la_ Kafka Streams to process Kafka messages in Python.
 
-oa are utilizing OAuth2 for managing authentication across
-services in a centralized manner. With the introduction of the `OAUTHBEARER`
-SASL mechanism in Kafka 2.0.0, both brokers and clients can be configured to
-use an external identity provider for authentication.
+Organizations are utilizing OAuth2 for managing federated identities across
+service boundaries a centralized manner. With the introduction of the
+`OAUTHBEARER` SASL mechanism in Kafka 2.0.0, both brokers and clients can be
+configured to use an external identity provider for authentication, making it
+easier to manage identities than span across systems.
 
 [TOC]
 

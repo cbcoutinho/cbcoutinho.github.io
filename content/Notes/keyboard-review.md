@@ -1,6 +1,6 @@
-Title: My First Review
-Date: 2010-12-03 10:20
-Tags: tag1;tag2;tag3
+title: My First Review
+date: 2010-12-03 10:20
+status: hidden
 
 Following is a review of my favorite mechanical keyboard.
 

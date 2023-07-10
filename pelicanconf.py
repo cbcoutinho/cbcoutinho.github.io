@@ -62,6 +62,18 @@ DEFAULT_PAGINATION = 10
 # RELATIVE_URLS = True
 
 # github.com/pelican-plugins/liquid-tags
-LIQUID_TAGS = ["notebook"]
+LIQUID_TAGS = ["img", "notebook"]
 
 # EXTRA_HEADER = pathlib.Path("_nb_header.html").read_text(encoding="utf-8")
+
+MARKDOWN = {
+    "extension_configs": {
+        # Needed for code syntax highlighting
+        "markdown.extensions.codehilite": {"css_class": "highlight"},
+        "markdown.extensions.extra": {},
+        "markdown.extensions.meta": {},
+        # This is for enabling the TOC generation
+        "markdown.extensions.toc": {"title": "Table of Contents"},
+    },
+    "output_format": "html5",
+}

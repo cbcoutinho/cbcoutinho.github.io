@@ -14,7 +14,7 @@ SITEURL = ""
 TIMEZONE = "Europe/Amsterdam"
 
 PATH = "content"
-STATIC_PATHS = ["files", "images", "code"]
+STATIC_PATHS = ["files", "images"]
 
 # This moves the keybase.io proof from a subdirectory to the site root
 #   http://docs.getpelican.com/en/stable/settings.html#metadata
@@ -62,7 +62,7 @@ DEFAULT_PAGINATION = 10
 # RELATIVE_URLS = True
 
 # github.com/pelican-plugins/liquid-tags
-LIQUID_TAGS = ["img", "notebook", "include_code"]
+LIQUID_TAGS = ["img", "notebook"]
 
 # EXTRA_HEADER = pathlib.Path("_nb_header.html").read_text(encoding="utf-8")
 

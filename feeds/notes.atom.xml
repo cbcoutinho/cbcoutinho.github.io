@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Chris' blog - Notes</title><link href="https://blog.coutinho.io/" rel="alternate"></link><link href="https://blog.coutinho.io/feeds/notes.atom.xml" rel="self"></link><id>https://blog.coutinho.io/</id><updated>2023-07-10T16:18:47+02:00</updated><entry><title>OAuth2 Kakfa and Python</title><link href="https://blog.coutinho.io/oauth2-kakfa-and-python.html" rel="alternate"></link><published>2023-07-10T00:00:00+02:00</published><updated>2023-07-10T16:18:47+02:00</updated><author><name>Chris Coutinho</name></author><id>tag:blog.coutinho.io,2023-07-10:/oauth2-kakfa-and-python.html</id><summary type="html">&lt;p&gt;This post demonstrates how to utilize OAuth2 in &lt;a href="https://faust-streaming.github.io/faust"&gt;Faust
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Chris' blog - Notes</title><link href="https://blog.coutinho.io/" rel="alternate"></link><link href="https://blog.coutinho.io/feeds/notes.atom.xml" rel="self"></link><id>https://blog.coutinho.io/</id><updated>2023-07-12T17:49:10+02:00</updated><entry><title>OAuth2 Kakfa and Python</title><link href="https://blog.coutinho.io/oauth2-kakfa-and-python.html" rel="alternate"></link><published>2023-07-10T00:00:00+02:00</published><updated>2023-07-12T17:49:10+02:00</updated><author><name>Chris Coutinho</name></author><id>tag:blog.coutinho.io,2023-07-10:/oauth2-kakfa-and-python.html</id><summary type="html">&lt;p&gt;This post demonstrates how to utilize OAuth2 in &lt;a href="https://faust-streaming.github.io/faust"&gt;Faust
 Streaming&lt;/a&gt; applications. Faust is a
 streaming library for Python. It provides stream/event processing primitives &lt;em&gt;a
 la&lt;/em&gt; Kafka Streams to process Kafka messages in Python.&lt;/p&gt;
@@ -49,7 +49,7 @@ Keycloak). See the
 for more information&lt;/p&gt;
 &lt;h1 id="oauth2oidc-authorization"&gt;OAuth2/OIDC Authorization&lt;/h1&gt;
 &lt;!--source: https://www.azureblue.io/content/images/2020/10/client-cred-flow-1.png--&gt;
-&lt;p&gt;&lt;img src="../images/client-cred-flow-1.png" title=""title text"" alt=""title text""&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="../images/client-cred-flow-1.png" title="OAuth2 Client Credential flow" alt="client-credential-flow"&gt;&lt;/p&gt;
 &lt;h1 id="oauth2-in-faust-streaming"&gt;OAuth2 in Faust Streaming&lt;/h1&gt;
 &lt;p&gt;Here's an example of a streaming application demonstrating how to connect to a
 Kafka broker over &lt;code&gt;PLAINTEXT&lt;/code&gt;, essentially anonymous and unencrypted. Our

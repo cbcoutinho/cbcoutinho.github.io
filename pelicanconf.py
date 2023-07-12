@@ -69,6 +69,9 @@ LIQUID_TAGS = ["img", "notebook"]
 MARKDOWN = {
     "extension_configs": {
         # Needed for code syntax highlighting
+        # NOTE: To create the css for a particular style, check docs
+        #
+        # pygmentize -S default -f html -a .highlight > themes/future-imperfect/static/css/default.css
         "markdown.extensions.codehilite": {"css_class": "highlight"},
         "markdown.extensions.extra": {},
         "markdown.extensions.meta": {},

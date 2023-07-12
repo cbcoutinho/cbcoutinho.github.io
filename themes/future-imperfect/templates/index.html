@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+Welcome to my page!
+
+{% block content %}
+{% for article in articles_page.object_list %}
+<!-- Post -->
+    <article class="post">
+        <header>
+            <div class="title">
+                <h2><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></h2>
+            </div>
+            <div class="meta">
+                <time class="published" datetime="{{ article.date }} | strftime('%Y-%m-%d') }}">{{ article.date | strftime('%b %-d, %Y') }}</time>
+                <a href="#" class="author"><span class="name">{{ article.author }}</span><img src="{{ SITEURL }}/theme/images/avatar.jpg" alt="" /></a>
+            </div>
+        </header>
+        <a href="{{ article.url }}" class="image featured"><img src="images/{{ article.image }}" alt="" /></a>
+            {{ article.summary }}
+        <footer>
+            <ul class="actions">
+                <li><a href="{{ SITEURL }}/{{ article.url }}" class="button large">Continue Reading</a></li>
+            </ul>
+            <ul class="stats">
+	  {% for tag in article.tags %}
+		  <li><a href="#">{{ tag.name }}</a></li>
+	  {% endfor %}
+            </ul>
+        </footer>
+    </article>
+{% endfor %}
+
+<!-- Pagination -->
+<?xml version="1.0"?>
+<ul class="actions pagination">
+      {% if articles_page.has_previous() %}
+          <li><a href="/{{ articles_previous_page.url }}" class="button large previous">Previous Page</a></li>
+      {% else %}
+          <li><a href="" class="disabled button large previous">Previous Page</a></li>
+      {% endif %}
+
+      {% if articles_page.has_next() %}
+          <li><a href="/{{ articles_next_page.url }}" class="button large next">Next Page</a></li>
+      {% else %}
+          <li><a href="#" class="disabled button large next">Next Page</a></li>
+      {% endif %}
+</ul>
+{% endblock %}

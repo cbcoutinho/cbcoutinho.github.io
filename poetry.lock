@@ -1649,6 +1649,23 @@ pelican = ">=4.5"
 markdown = ["markdown (>=3.2)"]
 
 [[package]]
+name = "pelican-sitemap"
+version = "1.0.3"
+description = "Pelican plugin to generate sitemap in plain-text or XML format"
+optional = false
+python-versions = ">=3.8.1,<4.0"
+files = [
+    {file = "pelican_sitemap-1.0.3-py3-none-any.whl", hash = "sha256:665a19a17e0c8a72a77c6e48749852e2abbf95c63951688ecc1daf9ce8ac0826"},
+    {file = "pelican_sitemap-1.0.3.tar.gz", hash = "sha256:80b8f112228ff321407909f5a2a2ff3073865f58048e6287c7010f2b342f8599"},
+]
+
+[package.dependencies]
+pelican = ">=4.5"
+
+[package.extras]
+markdown = ["markdown (>=3.2)"]
+
+[[package]]
 name = "pexpect"
 version = "4.8.0"
 description = "Pexpect allows easy control of interactive console applications."
@@ -2557,5 +2574,5 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 
 [metadata]
 lock-version = "2.0"
-python-versions = "^3.8"
-content-hash = "1e6329945fc442caaa31cbb5af777c28502d5e01c9e051f5f99cc050dbea5eba"
+python-versions = "^3.8.1"
+content-hash = "ac466620ae82ac2736f7cd11c5921a0b8f54f1ed19f1a4f918793993d8a50ac5"

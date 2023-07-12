@@ -50,7 +50,7 @@ for more information
 # OAuth2/OIDC Authorization
 
 <!--source: https://www.azureblue.io/content/images/2020/10/client-cred-flow-1.png-->
-{% img ../images/client-cred-flow-1.png  "title text" %}
+{% img ../images/client-cred-flow-1.png  "OAuth2 Client Credential flow" "client-credential-flow" %}
 
 # OAuth2 in Faust Streaming
 

@@ -3,7 +3,7 @@ date: 2023-07-11
 author: Chris Coutinho
 tags: tag1
 slug: terraform-plugin-provider
-<!--status: draft-->
+status: draft
 
 Building a Terraform provider using the _Terraform Plugin Framework_
 

@@ -1,0 +1,140 @@
+<!DOCTYPE HTML>
+<!--
+	Future Imperfect by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+        <title>{{ SITENAME }}</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+
+        <link rel="stylesheet" href="{{ SITE_URL }}/theme/css/main.css" />
+		<link rel="stylesheet" href="{{ SITE_URL }}/theme/css/default.css" />
+        <!--<link rel="stylesheet" href="{{ SITE_URL }}/theme/css/gruvbox-dark.css" />-->
+        <!--<link rel="stylesheet" href="{{ SITE_URL }}/theme/css/gruvbox-light.css" />-->
+		<!--<link rel="stylesheet" href="{{ SITE_URL }}/theme/css/paraiso-light.css" />-->
+        <!--NOTE: Requires pelican-webassets, libsass, and cssmin python packages-->
+		{# assets filters="libsass,cssmin", output="css/style.min.css", "css/style.scss" #}
+		  <!--<link rel="stylesheet" href="{{SITEURL}}/{{ASSET_URL}}">-->
+		{# endassets #}
+
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+                        <h1><a href="/">{{ SITENAME }}</a></h1>
+						<nav class="links">
+							<ul>
+								{% for page in pages %}
+									<li><a href="{{ SITEURL }}/{{ page.url }}">{{ page.title }}</a></li>
+								{% endfor %}
+								{% for cat, null in categories %}
+									<li><a href="{{ SITEURL }}/{{ cat.url }}">{{ cat }}</a></li>
+								{% endfor %}
+							</ul>
+						</nav>
+						<nav class="main">
+							<ul>
+								<li class="search">
+									<a class="fa-search" href="#search">Search</a>
+									<form id="search" method="get" action="#">
+										<input type="text" name="query" placeholder="Search" />
+									</form>
+								</li>
+								<li class="menu">
+									<a class="fa-bars" href="#menu">Menu</a>
+								</li>
+							</ul>
+						</nav>
+					</header>
+
+				<!-- Menu -->
+					<section id="menu">
+
+						<!-- Search -->
+							<section>
+								<form class="search" method="get" action="#">
+									<input type="text" name="query" placeholder="Search" />
+								</form>
+							</section>
+
+						<!-- Links -->
+							<section>
+								<ul class="links">
+									{% for name, link in LINKS %}
+									<li>
+										<a href="{{ link }}">
+											<h3>{{ name }}</h3>
+											<!--<p>Feugiat tempus veroeros dolor</p>-->
+										</a>
+									</li>
+									{% endfor %}
+								</ul>
+							</section>
+
+						<!-- Actions -->
+							<!--<section>-->
+								<!--<ul class="actions stacked">-->
+									<!--<li><a href="#" class="button large fit">Log In</a></li>-->
+								<!--</ul>-->
+							<!--</section>-->
+
+					</section>
+
+				<!-- Main -->
+					<div id="main">
+                        {% block content %}{% endblock %}
+					</div>
+
+				<!-- Sidebar -->
+					<section id="sidebar">
+
+						<!-- Intro -->
+							<section id="intro">
+								<a href="#" class="logo"><img src="{{ SITE_URL }}/theme/images/logo.jpg" alt="" /></a>
+								<header>
+                                    <h2>{{ SITENAME }}</h2>
+                                    <p>{{ SITESUBTITLE }}</p>
+								</header>
+							</section>
+
+                        {% include 'includes/latest_posts.html' %}
+
+						<!-- About -->
+							<section class="blurb">
+								<h2>About</h2>
+								<p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod amet placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at phasellus sed ultricies.</p>
+								<ul class="actions">
+									<li><a href="#" class="button">Learn More</a></li>
+								</ul>
+							</section>
+
+						<!-- Footer -->
+							<section id="footer">
+								<ul class="icons">
+                                    {% for name, icon, link in SOCIAL %}
+									<li><a href="{{ link }}" class="icon brands fa-{{ icon }}"><span class="label">{{ name }}</span></a></li>
+                                    {% endfor %}
+								</ul>
+								<p class="copyright">&copy; Untitled. Design: <a href="http://html5up.net">HTML5 UP</a>. Images: <a href="http://unsplash.com">Unsplash</a>.</p>
+							</section>
+
+					</section>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="{{SITE_URL}}/theme/js/jquery.min.js"></script>
+			<script src="{{SITE_URL}}/theme/js/browser.min.js"></script>
+			<script src="{{SITE_URL}}/theme/js/breakpoints.min.js"></script>
+			<script src="{{SITE_URL}}/theme/js/util.js"></script>
+			<script src="{{SITE_URL}}/theme/js/main.js"></script>
+
+	</body>
+</html>

@@ -1,5 +1,7 @@
 title: My First Review
 date: 2010-12-03 10:20
+author: Chris Coutinho
+tags: tag1
 status: hidden
 
 Following is a review of my favorite mechanical keyboard.

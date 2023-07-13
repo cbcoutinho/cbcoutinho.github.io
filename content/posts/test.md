@@ -1,5 +1,6 @@
 title: Test
-category: Notes
+Author: Chris Coutinho
+tags: tag1
 status: hidden
 
 {% notebook test.ipynb %}

@@ -8,6 +8,8 @@ AUTHOR = "Chris Coutinho"
 SITENAME = "Chris' blog"
 # SITESUBTITLE = ""
 
+THEME = "./themes/future-imperfect"
+
 # NOTE: This must stay empty to allow for local development. It's reset in
 # publishconf.py during deployment
 SITEURL = ""
@@ -52,14 +54,12 @@ LINKS = (
 
 # Social widget
 SOCIAL = (
-    ("Github", "https://www.github.com/cbcoutinho"),
-    ("LinkedIn", "https://www.linkedin.com/in/cbcoutinho/"),
+    ("Github", "github", "https://www.github.com/cbcoutinho"),
+    ("LinkedIn", "linkedin", "https://www.linkedin.com/in/cbcoutinho/"),
+    ("Instagram", "instagram", "https://www.instagram.com/chrisbcoutinho"),
 )
 
-DEFAULT_PAGINATION = 10
-
-# Uncomment following line if you want document-relative URLs when developing
-# RELATIVE_URLS = True
+DEFAULT_PAGINATION = 3
 
 # github.com/pelican-plugins/liquid-tags
 LIQUID_TAGS = ["img", "notebook"]
@@ -69,6 +69,9 @@ LIQUID_TAGS = ["img", "notebook"]
 MARKDOWN = {
     "extension_configs": {
         # Needed for code syntax highlighting
+        # NOTE: To create the css for a particular style, check docs
+        #
+        # pygmentize -S default -f html -a .highlight > themes/future-imperfect/static/css/default.css
         "markdown.extensions.codehilite": {"css_class": "highlight"},
         "markdown.extensions.extra": {},
         "markdown.extensions.meta": {},
@@ -77,3 +80,18 @@ MARKDOWN = {
     },
     "output_format": "html5",
 }
+
+# pelican-sitemap plugin
+SITEMAP = {
+    "format": "xml",
+    "exclude": [
+        "^/noindex/",  # starts with "/noindex/"
+        "/tag/",  # contains "/tag/"
+        r"\.json$",  # ends with ".json"
+    ],
+}
+
+# ARTICLE_URL = "posts/{date:%Y}/{date:%b}/{date:%d}/{slug}/"
+# ARTICLE_SAVE_AS = "posts/{date:%Y}/{date:%b}/{date:%d}/{slug}/index.html"
+# PAGE_URL = "pages/{slug}/"
+# PAGE_SAVE_AS = "pages/{slug}/index.html"

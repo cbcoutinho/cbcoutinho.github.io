@@ -1,0 +1,18 @@
+<!-- Mini Posts -->
+<section>
+  <div class="mini-posts">
+
+    {% for article in articles[:4] %}
+    <!-- Mini Post -->
+    <article class="mini-post">
+      <header>
+      <h3><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></h3>
+        <time class="published" datetime="{{ article.date | strftime('%Y-%m-%d') }}">{{ article.date | strftime('%b %-d, %Y') }}</time>
+        <a href="#" class="author"><img src="{{ SITEURL }}/images/self.jpg" alt="" /></a>
+      </header>
+      <a href="{{ SITEURL }}/{{ article.url }}" class="image"><img src="{{ SITEURL }}/theme/images/{{ article.image }}" alt="" /></a>
+    </article>
+    {% endfor %}
+
+  </div>
+</section>

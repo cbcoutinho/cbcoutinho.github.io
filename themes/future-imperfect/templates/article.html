@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Post -->
+<article class="post">
+  <header>
+    <div class="title">
+      <h2><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></h2>
+    </div>
+    <div class="meta">
+      <time class="published" datetime="{{ article.date | strftime('%Y-%m-%d') }}">{{ article.date | strftime('%b %-d, %Y') }}</time>
+      <a href="#" class="author"><span class="name">{{ article.author }}</span><img src="{{ SITEURL }}/images/self.jpg" alt="" /></a>
+    </div>
+  </header>
+  <a href="{{ article.url }}" class="image featured"><img src="images/{{ article.image }}" alt="" /></a>
+  {{ article.content }}
+  <footer>
+    <ul class="actions">
+      <li><a href="{{ SITEURL }}" class="button large">Back Home</a></li>
+    </ul>
+    <ul class="stats">
+	  {% for tag in article.tags %}
+		  <li><a href="#">{{ tag.name }}</a></li>
+	  {% endfor %}
+    </ul>
+  </footer>
+</article>
+{% endblock %}

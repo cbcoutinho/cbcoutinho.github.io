@@ -1,5 +1,8 @@
 title: OAuth2 Kakfa and Python
 date: 2023-07-10
+author: Chris Coutinho
+tags: tag1
+slug: faust-oauth
 
 This post demonstrates how to utilize OAuth2 in [Faust
 Streaming](https://faust-streaming.github.io/faust) applications. Faust is a
@@ -50,7 +53,8 @@ for more information
 # OAuth2/OIDC Authorization
 
 <!--source: https://www.azureblue.io/content/images/2020/10/client-cred-flow-1.png-->
-{% img ../images/client-cred-flow-1.png  "OAuth2 Client Credential flow" "client-credential-flow" %}
+<!--{% img ../images/client-cred-flow-1.png  "OAuth2 Client Credential flow" "client-credential-flow" %}-->
+![Client Credential flow]({static}/images/client-cred-flow-1.png)
 
 # OAuth2 in Faust Streaming
 

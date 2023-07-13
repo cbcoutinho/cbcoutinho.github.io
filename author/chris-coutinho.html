@@ -1,165 +1,233 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="generator" content="Pelican" />
-        <title>Chris' blog - Chris Coutinho</title>
-        <link rel="stylesheet" href="https://blog.coutinho.io/theme/css/main.css" />
-        <link href="https://blog.coutinho.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Chris' blog Atom Feed" />
-</head>
+<!DOCTYPE HTML>
+<!--
+	Future Imperfect by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+        <title>Chris' blog</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 
-<body id="index" class="home">
-        <header id="banner" class="body">
-                <h1><a href="https://blog.coutinho.io/">Chris' blog</a></h1>
-                <nav><ul>
-                    <li><a href="https://blog.coutinho.io/pages/about.html">About</a></li>
-                    <li><a href="https://blog.coutinho.io/pages/contact.html">Contact</a></li>
-                    <li><a href="https://blog.coutinho.io/category/notes.html">Notes</a></li>
-                </ul></nav>
-        </header><!-- /#banner -->
+        <link rel="stylesheet" href="/theme/css/main.css" />
+		<link rel="stylesheet" href="/theme/css/default.css" />
+        <!--<link rel="stylesheet" href="/theme/css/gruvbox-dark.css" />-->
+        <!--<link rel="stylesheet" href="/theme/css/gruvbox-light.css" />-->
+		<!--<link rel="stylesheet" href="/theme/css/paraiso-light.css" />-->
+        <!--NOTE: Requires pelican-webassets, libsass, and cssmin python packages-->
+		  <!--<link rel="stylesheet" href="https://blog.coutinho.io/">-->
 
-            <aside id="featured" class="body">
-                <article>
-                    <h1 class="entry-title"><a href="https://blog.coutinho.io/oauth2-kakfa-and-python.html">OAuth2 Kakfa and Python</a></h1>
-<footer class="post-info">
-        <abbr class="published" title="2023-07-10T00:00:00+02:00">
-                Published: Mon 10 July 2023
-        </abbr>
-		<br />
-        <abbr class="modified" title="2023-07-12T17:49:10.602237+02:00">
-                Updated: Wed 12 July 2023
-        </abbr>
+	</head>
+	<body class="is-preload">
 
-        <address class="vcard author">
-                By                         <a class="url fn" href="https://blog.coutinho.io/author/chris-coutinho.html">Chris Coutinho</a>
-        </address>
-<p>In <a href="https://blog.coutinho.io/category/notes.html">Notes</a>.</p>
+		<!-- Wrapper -->
+			<div id="wrapper">
 
-</footer><!-- /.post-info --><p>This post demonstrates how to utilize OAuth2 in <a href="https://faust-streaming.github.io/faust">Faust
+				<!-- Header -->
+					<header id="header">
+                        <h1><a href="/">Chris' blog</a></h1>
+						<nav class="links">
+							<ul>
+									<li><a href="https://blog.coutinho.io/pages/about.html">About</a></li>
+									<li><a href="https://blog.coutinho.io/pages/contact.html">Contact</a></li>
+									<li><a href="https://blog.coutinho.io/category/posts.html">posts</a></li>
+							</ul>
+						</nav>
+						<nav class="main">
+							<ul>
+								<li class="search">
+									<a class="fa-search" href="#search">Search</a>
+									<form id="search" method="get" action="#">
+										<input type="text" name="query" placeholder="Search" />
+									</form>
+								</li>
+								<li class="menu">
+									<a class="fa-bars" href="#menu">Menu</a>
+								</li>
+							</ul>
+						</nav>
+					</header>
+
+				<!-- Menu -->
+					<section id="menu">
+
+						<!-- Search -->
+							<section>
+								<form class="search" method="get" action="#">
+									<input type="text" name="query" placeholder="Search" />
+								</form>
+							</section>
+
+						<!-- Links -->
+							<section>
+								<ul class="links">
+									<li>
+										<a href="https://rotaractamsterdam.nl/">
+											<h3>Rotaract Amsterdam</h3>
+											<!--<p>Feugiat tempus veroeros dolor</p>-->
+										</a>
+									</li>
+									<li>
+										<a href="https://datachef.co">
+											<h3>DataChef</h3>
+											<!--<p>Feugiat tempus veroeros dolor</p>-->
+										</a>
+									</li>
+								</ul>
+							</section>
+
+						<!-- Actions -->
+							<!--<section>-->
+								<!--<ul class="actions stacked">-->
+									<!--<li><a href="#" class="button large fit">Log In</a></li>-->
+								<!--</ul>-->
+							<!--</section>-->
+
+					</section>
+
+				<!-- Main -->
+					<div id="main">
+<!-- Post -->
+    <article class="post">
+        <header>
+            <div class="title">
+                <h2><a href="https://blog.coutinho.io/terraform-plugin-provider.html">Building a custom provider using the Terraform Plugin Framework</a></h2>
+            </div>
+            <div class="meta">
+                <time class="published" datetime="2023-07-11 00:00:00+02:00 | strftime('%Y-%m-%d') }}">Jul 11, 2023</time>
+                <a href="#" class="author"><span class="name">Chris Coutinho</span><img src="https://blog.coutinho.io/images/self.jpg" alt="" /></a>
+            </div>
+        </header>
+        <a href="terraform-plugin-provider.html" class="image featured"><img src="images/" alt="" /></a>
+            <!--status: draft-->
+
+<p>Building a Terraform provider using the <em>Terraform Plugin Framework</em></p>
+<div class="highlight"><pre><span></span><code><span class="kn">package</span><span class="w"> </span><span class="nx">provider</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="s">&quot;context&quot;</span>
+<span class="w">    </span><span class="s">&quot;os&quot;</span>
+
+<span class="w">    </span><span class="s">&quot;github.com/hashicorp/terraform-plugin-framework/datasource&quot;</span>
+<span class="w">    </span><span class="s">&quot;github.com/hashicorp/terraform-plugin-framework/path&quot;</span>
+<span class="w">    </span><span class="s">&quot;github.com/hashicorp/terraform-plugin-framework/provider&quot;</span>
+<span class="w">    </span><span class="s">&quot;github.com/hashicorp/terraform-plugin-framework/provider/schema&quot;</span>
+<span class="w">    </span><span class="s">&quot;github.com/hashicorp/terraform-plugin-framework/resource&quot;</span>
+<span class="w">    </span><span class="s">&quot;github.com/hashicorp/terraform-plugin-framework/types&quot;</span>
+<span class="w">    </span><span class="s">&quot;github.com/hashicorp/terraform-plugin-log/tflog …</span></code></pre></div>
+        <footer>
+            <ul class="actions">
+                <li><a href="https://blog.coutinho.io/terraform-plugin-provider.html" class="button large">Continue Reading</a></li>
+            </ul>
+            <ul class="stats">
+		  <li><a href="#">tag1</a></li>
+            </ul>
+        </footer>
+    </article>
+<!-- Post -->
+    <article class="post">
+        <header>
+            <div class="title">
+                <h2><a href="https://blog.coutinho.io/faust-oauth.html">OAuth2 Kakfa and Python</a></h2>
+            </div>
+            <div class="meta">
+                <time class="published" datetime="2023-07-10 00:00:00+02:00 | strftime('%Y-%m-%d') }}">Jul 10, 2023</time>
+                <a href="#" class="author"><span class="name">Chris Coutinho</span><img src="https://blog.coutinho.io/images/self.jpg" alt="" /></a>
+            </div>
+        </header>
+        <a href="faust-oauth.html" class="image featured"><img src="images/" alt="" /></a>
+            <p>This post demonstrates how to utilize OAuth2 in <a href="https://faust-streaming.github.io/faust">Faust
 Streaming</a> applications. Faust is a
 streaming library for Python. It provides stream/event processing primitives <em>a
 la</em> Kafka Streams to process Kafka messages in Python.</p>
 <p>Organizations are utilizing OAuth2 for managing federated identities across
-service boundaries a centralized manner. With the introduction of the
-<code>OAUTHBEARER</code> SASL mechanism in Kafka 2.0.0, both brokers and clients can be
-configured to use an external identity provider for authentication, making it
-easier to manage identities than span across systems.</p>
-<div class="toc"><span class="toctitle">Table of Contents</span><ul>
-<li><a href="#authorization-in-kafka">Authorization in Kafka</a></li>
-<li><a href="#oauth2oidc-authorization">OAuth2/OIDC Authorization</a></li>
-<li><a href="#oauth2-in-faust-streaming">OAuth2 in Faust Streaming</a></li>
+service boundaries a centralized manner. With the …</p>
+        <footer>
+            <ul class="actions">
+                <li><a href="https://blog.coutinho.io/faust-oauth.html" class="button large">Continue Reading</a></li>
+            </ul>
+            <ul class="stats">
+		  <li><a href="#">tag1</a></li>
+            </ul>
+        </footer>
+    </article>
+
+<!-- Pagination -->
+<?xml version="1.0"?>
+<ul class="actions pagination">
+          <li><a href="" class="disabled button large previous">Previous Page</a></li>
+
+          <li><a href="#" class="disabled button large next">Next Page</a></li>
 </ul>
-</div>
-<h1 id="authorization-in-kafka">Authorization in Kafka</h1>
-<p>Apache Kafka provides an Authorization system based on Access Control Lists
-(ACLs). Kafka acls are defined in the general format of "Principal P is
-[Allowed/Denied] Operation O From Host H On Resource R". You can read more
-about the acl structure on
-<a href="https://cwiki.apache.org/confluence/display/KAFKA/KIP-11+-+Authorization+Interface">KIP-11</a>.</p>
-<p>In addition to SSL encryption, Kafka supports multiple <em>authorization
-mechanisms</em> via the Simple Authentication and Security Layer (SASL) to enable
-authentication via third-party servers. This enables Kafka clusters to utilize
-industry-standard identity providers for all broker and client authentication
-requests.</p>
-<p>Confluent Cloud currently supports the following authorization mechanisms:</p>
-<ul>
-<li><code>GSSAPI</code> (Kerberos)</li>
-<li><code>PLAIN</code> (Username/Password)</li>
-<li><code>SCRAM-SHA</code> (Zookeeper)</li>
-<li><code>OAUTHBEARER</code> (OAuth server)</li>
-</ul>
-<p>See the Confluent documentation on <a href="https://developer.confluent.io/learn-kafka/security/authentication-ssl-and-sasl-ssl/#enabling-sasl-ssl-for-kafka">Enabling SASL SSL for
-Kafka</a>
-for more information.</p>
-<p>The <code>OAUTHBEARER</code> security mechanism enables a Kafka cluster to utilize a
-third-party identity provider for authentication. In the case of Confluent
-Cloud, setting up an external identity provider is very straight forward,
-assuming you're using an OIDC-compliant identity provider (e.g. Azure AD, Okta,
-Keycloak). See the
-<a href="https://docs.confluent.io/cloud/current/access-management/authenticate/oauth/identity-providers.html">documentation</a>
-for more information</p>
-<h1 id="oauth2oidc-authorization">OAuth2/OIDC Authorization</h1>
-<!--source: https://www.azureblue.io/content/images/2020/10/client-cred-flow-1.png-->
-<p><img src="../images/client-cred-flow-1.png" title="OAuth2 Client Credential flow" alt="client-credential-flow"></p>
-<h1 id="oauth2-in-faust-streaming">OAuth2 in Faust Streaming</h1>
-<p>Here's an example of a streaming application demonstrating how to connect to a
-Kafka broker over <code>PLAINTEXT</code>, essentially anonymous and unencrypted. Our
-client is assuming all messages adhere to the <code>Order</code> schema.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">faust</span>
+					</div>
 
-<span class="n">app</span> <span class="o">=</span> <span class="n">faust</span><span class="o">.</span><span class="n">App</span><span class="p">(</span><span class="s2">&quot;myapp&quot;</span><span class="p">,</span> <span class="n">broker</span><span class="o">=</span><span class="s2">&quot;kafka://localhost&quot;</span><span class="p">)</span>
+				<!-- Sidebar -->
+					<section id="sidebar">
 
-<span class="k">class</span> <span class="nc">Order</span><span class="p">(</span><span class="n">faust</span><span class="o">.</span><span class="n">Record</span><span class="p">):</span>
-    <span class="n">account_id</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="n">amount</span><span class="p">:</span> <span class="nb">int</span>
+						<!-- Intro -->
+							<section id="intro">
+								<a href="#" class="logo"><img src="/theme/images/logo.jpg" alt="" /></a>
+								<header>
+                                    <h2>Chris' blog</h2>
+                                    <p></p>
+								</header>
+							</section>
 
-<span class="nd">@app</span><span class="o">.</span><span class="n">agent</span><span class="p">(</span><span class="n">value_type</span><span class="o">=</span><span class="n">Order</span><span class="p">)</span>
-<span class="k">async</span> <span class="k">def</span> <span class="nf">order</span><span class="p">(</span><span class="n">orders</span><span class="p">):</span>
-    <span class="k">async</span> <span class="k">for</span> <span class="n">order</span> <span class="ow">in</span> <span class="n">orders</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Order for </span><span class="si">{</span><span class="n">order</span><span class="o">.</span><span class="n">account_id</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">order</span><span class="o">.</span><span class="n">amount</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</code></pre></div>
+<!-- Mini Posts -->
+<section>
+  <div class="mini-posts">
 
-<p>Faust recently introduced a new authorization mechanism to support
-<code>OAUTHBEARER</code> authentication in <code>v1.5.0</code>, enabling Faust Streaming workers to
-authenticate to a Kafka broker configured with an identity provider using
-OAuth2 Bearer tokens.</p>
-<p>Using <code>OAUTHBEARER</code> broker credentials requires that we setup at least a
-default SSL context, and provide an instance of <code>AbstractTokenProvider</code> to the
-<code>faust.App</code> during configuration. The new <code>faust.OAuthCredentials</code> class
-supports a single <code>oauth_cb</code> attribute for an instance of
-<code>AbstractTokenProvider</code>, which is a class with a single asynchronous method for
-retrieving the bearer token. Clients are responsible for managing the entire
-token life cycle, such as handling token refreshes, etc.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">faust</span>
-<span class="kn">from</span> <span class="nn">aiokafka.conn</span> <span class="kn">import</span> <span class="n">AbstractTokenProvider</span>
-<span class="kn">from</span> <span class="nn">aiokafka.helpers</span> <span class="kn">import</span> <span class="n">create_ssl_context</span>
+    <!-- Mini Post -->
+    <article class="mini-post">
+      <header>
+      <h3><a href="https://blog.coutinho.io/terraform-plugin-provider.html">Building a custom provider using the Terraform Plugin Framework</a></h3>
+        <time class="published" datetime="2023-07-11">Jul 11, 2023</time>
+        <a href="#" class="author"><img src="https://blog.coutinho.io/images/self.jpg" alt="" /></a>
+      </header>
+      <a href="https://blog.coutinho.io/terraform-plugin-provider.html" class="image"><img src="https://blog.coutinho.io/theme/images/" alt="" /></a>
+    </article>
+    <!-- Mini Post -->
+    <article class="mini-post">
+      <header>
+      <h3><a href="https://blog.coutinho.io/faust-oauth.html">OAuth2 Kakfa and Python</a></h3>
+        <time class="published" datetime="2023-07-10">Jul 10, 2023</time>
+        <a href="#" class="author"><img src="https://blog.coutinho.io/images/self.jpg" alt="" /></a>
+      </header>
+      <a href="https://blog.coutinho.io/faust-oauth.html" class="image"><img src="https://blog.coutinho.io/theme/images/" alt="" /></a>
+    </article>
 
-<span class="k">class</span> <span class="nc">CustomTokenProvider</span><span class="p">(</span><span class="n">AbstractTokenProvider</span><span class="p">):</span>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">token</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="o">...</span>
+  </div>
+</section>
+						<!-- About -->
+							<section class="blurb">
+								<h2>About</h2>
+								<p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod amet placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at phasellus sed ultricies.</p>
+								<ul class="actions">
+									<li><a href="#" class="button">Learn More</a></li>
+								</ul>
+							</section>
 
-<span class="n">broker_credentials</span> <span class="o">=</span> <span class="n">faust</span><span class="o">.</span><span class="n">OAuthCredentials</span><span class="p">(</span>
-    <span class="n">oauth_cb</span><span class="o">=</span><span class="n">CustomTokenProvider</span><span class="p">(),</span>
-    <span class="n">ssl_context</span><span class="o">=</span><span class="n">create_ssl_context</span><span class="p">(),</span>
-<span class="p">)</span>
+						<!-- Footer -->
+							<section id="footer">
+								<ul class="icons">
+									<li><a href="https://www.github.com/cbcoutinho" class="icon brands fa-github"><span class="label">Github</span></a></li>
+									<li><a href="https://www.linkedin.com/in/cbcoutinho/" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+									<li><a href="https://www.instagram.com/chrisbcoutinho" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+								</ul>
+								<p class="copyright">&copy; Untitled. Design: <a href="http://html5up.net">HTML5 UP</a>. Images: <a href="http://unsplash.com">Unsplash</a>.</p>
+							</section>
 
-<span class="n">app</span> <span class="o">=</span> <span class="n">faust</span><span class="o">.</span><span class="n">App</span><span class="p">(</span>
-    <span class="s2">&quot;myapp&quot;</span><span class="p">,</span>
-    <span class="n">broker</span><span class="o">=</span><span class="n">KAFKA_BROKER</span><span class="p">,</span>
-    <span class="n">broker_credentials</span><span class="o">=</span><span class="n">broker_credentials</span><span class="p">,</span>
-<span class="p">)</span>
+					</section>
 
-<span class="c1"># Setting up Model and Agents same as above.</span>
-<span class="c1"># ...</span>
-</code></pre></div>                </article>
-            </aside><!-- /#featured -->
-        <section id="extras" class="body">
-                <div class="blogroll">
-                        <h2>links</h2>
-                        <ul>
-                            <li><a href="https://rotaractamsterdam.nl/">Rotaract Amsterdam</a></li>
-                            <li><a href="https://datachef.co">DataChef</a></li>
-                        </ul>
-                </div><!-- /.blogroll -->
-                <div class="social">
-                        <h2>social</h2>
-                        <ul>
-                            <li><a href="https://blog.coutinho.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
+			</div>
 
-                            <li><a href="https://www.github.com/cbcoutinho">Github</a></li>
-                            <li><a href="https://www.linkedin.com/in/cbcoutinho/">LinkedIn</a></li>
-                        </ul>
-                </div><!-- /.social -->
-        </section><!-- /#extras -->
+		<!-- Scripts -->
+			<script src="/theme/js/jquery.min.js"></script>
+			<script src="/theme/js/browser.min.js"></script>
+			<script src="/theme/js/breakpoints.min.js"></script>
+			<script src="/theme/js/util.js"></script>
+			<script src="/theme/js/main.js"></script>
 
-        <footer id="contentinfo" class="body">
-                <address id="about" class="vcard body">
-                Proudly powered by <a href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a href="https://www.python.org/">Python</a>.
-                </address><!-- /#about -->
-
-                <p>The theme is by <a href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
-        </footer><!-- /#contentinfo -->
-
-</body>
+	</body>
 </html>

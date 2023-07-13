@@ -1,0 +1,403 @@
+<!DOCTYPE HTML>
+<!--
+	Future Imperfect by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+        <title>Chris' blog</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+
+        <link rel="stylesheet" href="/theme/css/main.css" />
+		<link rel="stylesheet" href="/theme/css/default.css" />
+        <!--<link rel="stylesheet" href="/theme/css/gruvbox-dark.css" />-->
+        <!--<link rel="stylesheet" href="/theme/css/gruvbox-light.css" />-->
+		<!--<link rel="stylesheet" href="/theme/css/paraiso-light.css" />-->
+        <!--NOTE: Requires pelican-webassets, libsass, and cssmin python packages-->
+		  <!--<link rel="stylesheet" href="https://blog.coutinho.io/">-->
+
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+                        <h1><a href="/">Chris' blog</a></h1>
+						<nav class="links">
+							<ul>
+									<li><a href="https://blog.coutinho.io/pages/about.html">About</a></li>
+									<li><a href="https://blog.coutinho.io/pages/contact.html">Contact</a></li>
+									<li><a href="https://blog.coutinho.io/category/posts.html">posts</a></li>
+							</ul>
+						</nav>
+						<nav class="main">
+							<ul>
+								<li class="search">
+									<a class="fa-search" href="#search">Search</a>
+									<form id="search" method="get" action="#">
+										<input type="text" name="query" placeholder="Search" />
+									</form>
+								</li>
+								<li class="menu">
+									<a class="fa-bars" href="#menu">Menu</a>
+								</li>
+							</ul>
+						</nav>
+					</header>
+
+				<!-- Menu -->
+					<section id="menu">
+
+						<!-- Search -->
+							<section>
+								<form class="search" method="get" action="#">
+									<input type="text" name="query" placeholder="Search" />
+								</form>
+							</section>
+
+						<!-- Links -->
+							<section>
+								<ul class="links">
+									<li>
+										<a href="https://rotaractamsterdam.nl/">
+											<h3>Rotaract Amsterdam</h3>
+											<!--<p>Feugiat tempus veroeros dolor</p>-->
+										</a>
+									</li>
+									<li>
+										<a href="https://datachef.co">
+											<h3>DataChef</h3>
+											<!--<p>Feugiat tempus veroeros dolor</p>-->
+										</a>
+									</li>
+								</ul>
+							</section>
+
+						<!-- Actions -->
+							<!--<section>-->
+								<!--<ul class="actions stacked">-->
+									<!--<li><a href="#" class="button large fit">Log In</a></li>-->
+								<!--</ul>-->
+							<!--</section>-->
+
+					</section>
+
+				<!-- Main -->
+					<div id="main">
+<!-- Post -->
+<article class="post">
+  <header>
+    <div class="title">
+      <h2><a href="https://blog.coutinho.io/terraform-plugin-provider.html">Building a custom provider using the Terraform Plugin Framework</a></h2>
+    </div>
+    <div class="meta">
+      <time class="published" datetime="2023-07-11">Jul 11, 2023</time>
+      <a href="#" class="author"><span class="name">Chris Coutinho</span><img src="https://blog.coutinho.io/images/self.jpg" alt="" /></a>
+    </div>
+  </header>
+  <a href="terraform-plugin-provider.html" class="image featured"><img src="images/" alt="" /></a>
+  <!--status: draft-->
+
+<p>Building a Terraform provider using the <em>Terraform Plugin Framework</em></p>
+<div class="highlight"><pre><span></span><code><span class="kn">package</span><span class="w"> </span><span class="nx">provider</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="s">&quot;context&quot;</span>
+<span class="w">    </span><span class="s">&quot;os&quot;</span>
+
+<span class="w">    </span><span class="s">&quot;github.com/hashicorp/terraform-plugin-framework/datasource&quot;</span>
+<span class="w">    </span><span class="s">&quot;github.com/hashicorp/terraform-plugin-framework/path&quot;</span>
+<span class="w">    </span><span class="s">&quot;github.com/hashicorp/terraform-plugin-framework/provider&quot;</span>
+<span class="w">    </span><span class="s">&quot;github.com/hashicorp/terraform-plugin-framework/provider/schema&quot;</span>
+<span class="w">    </span><span class="s">&quot;github.com/hashicorp/terraform-plugin-framework/resource&quot;</span>
+<span class="w">    </span><span class="s">&quot;github.com/hashicorp/terraform-plugin-framework/types&quot;</span>
+<span class="w">    </span><span class="s">&quot;github.com/hashicorp/terraform-plugin-log/tflog&quot;</span>
+<span class="p">)</span>
+
+<span class="c1">// Ensure the implementation satisfies the expected interfaces.</span>
+<span class="kd">var</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="nx">_</span><span class="w"> </span><span class="nx">provider</span><span class="p">.</span><span class="nx">Provider</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">longshipProvider</span><span class="p">{}</span>
+<span class="p">)</span>
+
+<span class="c1">// New is a helper function to simplify provider server and testing implementation.</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">New</span><span class="p">(</span><span class="nx">version</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="nx">provider</span><span class="p">.</span><span class="nx">Provider</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="nx">provider</span><span class="p">.</span><span class="nx">Provider</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">longshipProvider</span><span class="p">{</span>
+<span class="w">            </span><span class="nx">version</span><span class="p">:</span><span class="w"> </span><span class="nx">version</span><span class="p">,</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// longshipProvider is the provider implementation.</span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">longshipProvider</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// version is set to the provider version on release, &quot;dev&quot; when the</span>
+<span class="w">    </span><span class="c1">// provider is built and ran locally, and &quot;test&quot; when running acceptance</span>
+<span class="w">    </span><span class="c1">// testing.</span>
+<span class="w">    </span><span class="nx">version</span><span class="w"> </span><span class="kt">string</span>
+<span class="p">}</span>
+
+<span class="c1">// Metadata returns the provider type name.</span>
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">p</span><span class="w"> </span><span class="o">*</span><span class="nx">longshipProvider</span><span class="p">)</span><span class="w"> </span><span class="nx">Metadata</span><span class="p">(</span><span class="nx">_</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="nx">provider</span><span class="p">.</span><span class="nx">MetadataRequest</span><span class="p">,</span><span class="w"> </span><span class="nx">resp</span><span class="w"> </span><span class="o">*</span><span class="nx">provider</span><span class="p">.</span><span class="nx">MetadataResponse</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">resp</span><span class="p">.</span><span class="nx">TypeName</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;longship&quot;</span>
+<span class="w">    </span><span class="nx">resp</span><span class="p">.</span><span class="nx">Version</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">p</span><span class="p">.</span><span class="nx">version</span>
+<span class="p">}</span>
+
+<span class="kd">type</span><span class="w"> </span><span class="nx">longshipProviderModel</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">Host</span><span class="w">           </span><span class="nx">types</span><span class="p">.</span><span class="nx">String</span><span class="w"> </span><span class="s">`tfsdk:&quot;host&quot;`</span>
+<span class="w">    </span><span class="nx">TenantKey</span><span class="w">      </span><span class="nx">types</span><span class="p">.</span><span class="nx">String</span><span class="w"> </span><span class="s">`tfsdk:&quot;tenant_key&quot;`</span>
+<span class="w">    </span><span class="nx">ApplicationKey</span><span class="w"> </span><span class="nx">types</span><span class="p">.</span><span class="nx">String</span><span class="w"> </span><span class="s">`tfsdk:&quot;application_key&quot;`</span>
+<span class="p">}</span>
+
+<span class="c1">// Schema defines the provider-level schema for configuration data.</span>
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">p</span><span class="w"> </span><span class="o">*</span><span class="nx">longshipProvider</span><span class="p">)</span><span class="w"> </span><span class="nx">Schema</span><span class="p">(</span><span class="nx">_</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="nx">provider</span><span class="p">.</span><span class="nx">SchemaRequest</span><span class="p">,</span><span class="w"> </span><span class="nx">resp</span><span class="w"> </span><span class="o">*</span><span class="nx">provider</span><span class="p">.</span><span class="nx">SchemaResponse</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">resp</span><span class="p">.</span><span class="nx">Schema</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">schema</span><span class="p">.</span><span class="nx">Schema</span><span class="p">{</span>
+<span class="w">        </span><span class="nx">Attributes</span><span class="p">:</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="nx">schema</span><span class="p">.</span><span class="nx">Attribute</span><span class="p">{</span>
+<span class="w">            </span><span class="s">&quot;host&quot;</span><span class="p">:</span><span class="w"> </span><span class="nx">schema</span><span class="p">.</span><span class="nx">StringAttribute</span><span class="p">{</span>
+<span class="w">                </span><span class="nx">Description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;URI for Longship API. May also be provided via LONGSHIP_HOST environment variable.&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nx">Optional</span><span class="p">:</span><span class="w">    </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="s">&quot;tenant_key&quot;</span><span class="p">:</span><span class="w"> </span><span class="nx">schema</span><span class="p">.</span><span class="nx">StringAttribute</span><span class="p">{</span>
+<span class="w">                </span><span class="nx">Description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Tenant key for Longship API. May also be provided via LONGSHIP_TENANT_KEY environment variable.&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nx">Optional</span><span class="p">:</span><span class="w">    </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">                </span><span class="nx">Sensitive</span><span class="p">:</span><span class="w">   </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="s">&quot;application_key&quot;</span><span class="p">:</span><span class="w"> </span><span class="nx">schema</span><span class="p">.</span><span class="nx">StringAttribute</span><span class="p">{</span>
+<span class="w">                </span><span class="nx">Description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Application key for Longship API. May also be provided via LONGSHIP_APPLICATION_KEY environment variable.&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nx">Optional</span><span class="p">:</span><span class="w">    </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">                </span><span class="nx">Sensitive</span><span class="p">:</span><span class="w">   </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// Configure prepares a Longship API client for data sources and resources.</span>
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">p</span><span class="w"> </span><span class="o">*</span><span class="nx">longshipProvider</span><span class="p">)</span><span class="w"> </span><span class="nx">Configure</span><span class="p">(</span><span class="nx">ctx</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span><span class="w"> </span><span class="nx">req</span><span class="w"> </span><span class="nx">provider</span><span class="p">.</span><span class="nx">ConfigureRequest</span><span class="p">,</span><span class="w"> </span><span class="nx">resp</span><span class="w"> </span><span class="o">*</span><span class="nx">provider</span><span class="p">.</span><span class="nx">ConfigureResponse</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="nx">tflog</span><span class="p">.</span><span class="nx">Debug</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Configuring Longship client&quot;</span><span class="p">)</span>
+
+<span class="w">    </span><span class="c1">// Retrieve provider data from configuration</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">config</span><span class="w"> </span><span class="nx">longshipProviderModel</span>
+<span class="w">    </span><span class="nx">diags</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">req</span><span class="p">.</span><span class="nx">Config</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">config</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">resp</span><span class="p">.</span><span class="nx">Diagnostics</span><span class="p">.</span><span class="nx">Append</span><span class="p">(</span><span class="nx">diags</span><span class="o">...</span><span class="p">)</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">resp</span><span class="p">.</span><span class="nx">Diagnostics</span><span class="p">.</span><span class="nx">HasError</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// If practitioner provided a configuration value for any of the</span>
+<span class="w">    </span><span class="c1">// attributes, it must be a known value.</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">config</span><span class="p">.</span><span class="nx">Host</span><span class="p">.</span><span class="nx">IsUnknown</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">resp</span><span class="p">.</span><span class="nx">Diagnostics</span><span class="p">.</span><span class="nx">AddAttributeError</span><span class="p">(</span>
+<span class="w">            </span><span class="nx">path</span><span class="p">.</span><span class="nx">Root</span><span class="p">(</span><span class="s">&quot;host&quot;</span><span class="p">),</span>
+<span class="w">            </span><span class="s">&quot;Unknown Longship API Host&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="s">&quot;The provider cannot create the Longship API client as there is an unknown configuration value for the Longship API host. &quot;</span><span class="o">+</span>
+<span class="w">                </span><span class="s">&quot;Either target apply the source of the value first, set the value statically in the configuration, or use the LONGSHIP_HOST environment variable.&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">config</span><span class="p">.</span><span class="nx">TenantKey</span><span class="p">.</span><span class="nx">IsUnknown</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">resp</span><span class="p">.</span><span class="nx">Diagnostics</span><span class="p">.</span><span class="nx">AddAttributeError</span><span class="p">(</span>
+<span class="w">            </span><span class="nx">path</span><span class="p">.</span><span class="nx">Root</span><span class="p">(</span><span class="s">&quot;tenant_key&quot;</span><span class="p">),</span>
+<span class="w">            </span><span class="s">&quot;Unknown Longship API TenantKey&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="s">&quot;The provider cannot create the Longship API client as there is an unknown configuration value for the Longship API tenantKey. &quot;</span><span class="o">+</span>
+<span class="w">                </span><span class="s">&quot;Either target apply the source of the value first, set the value statically in the configuration, or use the LONGSHIP_TENANT_KEY environment variable.&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">config</span><span class="p">.</span><span class="nx">ApplicationKey</span><span class="p">.</span><span class="nx">IsUnknown</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">resp</span><span class="p">.</span><span class="nx">Diagnostics</span><span class="p">.</span><span class="nx">AddAttributeError</span><span class="p">(</span>
+<span class="w">            </span><span class="nx">path</span><span class="p">.</span><span class="nx">Root</span><span class="p">(</span><span class="s">&quot;application_key&quot;</span><span class="p">),</span>
+<span class="w">            </span><span class="s">&quot;Unknown Longship API ApplicationKey&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="s">&quot;The provider cannot create the Longship API client as there is an unknown configuration value for the Longship API applicationKey. &quot;</span><span class="o">+</span>
+<span class="w">                </span><span class="s">&quot;Either target apply the source of the value first, set the value statically in the configuration, or use the LONGSHIP_APPLICATION_KEY environment variable.&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">resp</span><span class="p">.</span><span class="nx">Diagnostics</span><span class="p">.</span><span class="nx">HasError</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Default values to environment variables, but override</span>
+<span class="w">    </span><span class="c1">// with Terraform configuration value if set.</span>
+
+<span class="w">    </span><span class="nx">host</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">Getenv</span><span class="p">(</span><span class="s">&quot;LONGSHIP_HOST&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">tenantKey</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">Getenv</span><span class="p">(</span><span class="s">&quot;LONGSHIP_TENANT_KEY&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">applicationKey</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">Getenv</span><span class="p">(</span><span class="s">&quot;LONGSHIP_APPLICATION_KEY&quot;</span><span class="p">)</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">!</span><span class="nx">config</span><span class="p">.</span><span class="nx">Host</span><span class="p">.</span><span class="nx">IsNull</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">host</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">config</span><span class="p">.</span><span class="nx">Host</span><span class="p">.</span><span class="nx">ValueString</span><span class="p">()</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">!</span><span class="nx">config</span><span class="p">.</span><span class="nx">TenantKey</span><span class="p">.</span><span class="nx">IsNull</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">tenantKey</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">config</span><span class="p">.</span><span class="nx">TenantKey</span><span class="p">.</span><span class="nx">ValueString</span><span class="p">()</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">!</span><span class="nx">config</span><span class="p">.</span><span class="nx">ApplicationKey</span><span class="p">.</span><span class="nx">IsNull</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">applicationKey</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">config</span><span class="p">.</span><span class="nx">ApplicationKey</span><span class="p">.</span><span class="nx">ValueString</span><span class="p">()</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// If any of the expected configurations are missing, return</span>
+<span class="w">    </span><span class="c1">// errors with provider-specific guidance.</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">host</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">resp</span><span class="p">.</span><span class="nx">Diagnostics</span><span class="p">.</span><span class="nx">AddAttributeError</span><span class="p">(</span>
+<span class="w">            </span><span class="nx">path</span><span class="p">.</span><span class="nx">Root</span><span class="p">(</span><span class="s">&quot;host&quot;</span><span class="p">),</span>
+<span class="w">            </span><span class="s">&quot;Missing Longship API Host&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="s">&quot;The provider cannot create the Longship API client as there is a missing or empty value for the Longship API host. &quot;</span><span class="o">+</span>
+<span class="w">                </span><span class="s">&quot;Set the host value in the configuration or use the LONGSHIP_HOST environment variable. &quot;</span><span class="o">+</span>
+<span class="w">                </span><span class="s">&quot;If either is already set, ensure the value is not empty.&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">tenantKey</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">resp</span><span class="p">.</span><span class="nx">Diagnostics</span><span class="p">.</span><span class="nx">AddAttributeError</span><span class="p">(</span>
+<span class="w">            </span><span class="nx">path</span><span class="p">.</span><span class="nx">Root</span><span class="p">(</span><span class="s">&quot;tenantKey&quot;</span><span class="p">),</span>
+<span class="w">            </span><span class="s">&quot;Missing Longship API Tenant Key&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="s">&quot;The provider cannot create the Longship API client as there is a missing or empty value for the Longship API Tenant Key. &quot;</span><span class="o">+</span>
+<span class="w">                </span><span class="s">&quot;Set the tenant_key value in the configuration or use the LONGSHIP_TENANT_KEY environment variable. &quot;</span><span class="o">+</span>
+<span class="w">                </span><span class="s">&quot;If either is already set, ensure the value is not empty.&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">applicationKey</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">resp</span><span class="p">.</span><span class="nx">Diagnostics</span><span class="p">.</span><span class="nx">AddAttributeError</span><span class="p">(</span>
+<span class="w">            </span><span class="nx">path</span><span class="p">.</span><span class="nx">Root</span><span class="p">(</span><span class="s">&quot;applicationKey&quot;</span><span class="p">),</span>
+<span class="w">            </span><span class="s">&quot;Missing Longship API Application Key&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="s">&quot;The provider cannot create the Longship API client as there is a missing or empty value for the Longship API Application Key. &quot;</span><span class="o">+</span>
+<span class="w">                </span><span class="s">&quot;Set the application_key value in the configuration or use the LONGSHIP_APPLICATION_KEY environment variable. &quot;</span><span class="o">+</span>
+<span class="w">                </span><span class="s">&quot;If either is already set, ensure the value is not empty.&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">resp</span><span class="p">.</span><span class="nx">Diagnostics</span><span class="p">.</span><span class="nx">HasError</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nx">ctx</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">tflog</span><span class="p">.</span><span class="nx">SetField</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;longship_host&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">host</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">ctx</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">tflog</span><span class="p">.</span><span class="nx">SetField</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;longship_tenant_key&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">tenantKey</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">ctx</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">tflog</span><span class="p">.</span><span class="nx">SetField</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;longship_application_key&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">applicationKey</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">ctx</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">tflog</span><span class="p">.</span><span class="nx">MaskFieldValuesWithFieldKeys</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;longship_tenant_key&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">ctx</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">tflog</span><span class="p">.</span><span class="nx">MaskFieldValuesWithFieldKeys</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;longship_application_key&quot;</span><span class="p">)</span>
+
+<span class="w">    </span><span class="nx">tflog</span><span class="p">.</span><span class="nx">Debug</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Creating Longship client&quot;</span><span class="p">)</span>
+
+<span class="w">    </span><span class="c1">// Create a new Longship client using the configuration values</span>
+<span class="w">    </span><span class="nx">client</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">NewClient</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">host</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">tenantKey</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">applicationKey</span><span class="p">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">resp</span><span class="p">.</span><span class="nx">Diagnostics</span><span class="p">.</span><span class="nx">AddError</span><span class="p">(</span>
+<span class="w">            </span><span class="s">&quot;Unable to Create Longship API Client&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="s">&quot;An unexpected error occurred when creating the Longship API client. &quot;</span><span class="o">+</span>
+<span class="w">                </span><span class="s">&quot;If the error is not clear, please contact the provider developers.\n\n&quot;</span><span class="o">+</span>
+<span class="w">                </span><span class="s">&quot;Longship Client Error: &quot;</span><span class="o">+</span><span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">(),</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">        </span><span class="k">return</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Make the Longship client available during DataSource and Resource</span>
+<span class="w">    </span><span class="c1">// type Configure methods.</span>
+<span class="w">    </span><span class="nx">resp</span><span class="p">.</span><span class="nx">DataSourceData</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">client</span>
+<span class="w">    </span><span class="nx">resp</span><span class="p">.</span><span class="nx">ResourceData</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">client</span>
+
+<span class="w">    </span><span class="nx">tflog</span><span class="p">.</span><span class="nx">Info</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Configured Longship client&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">any</span><span class="p">{</span><span class="s">&quot;success&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">})</span>
+<span class="p">}</span>
+
+<span class="c1">// DataSources defines the data sources implemented in the provider.</span>
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">p</span><span class="w"> </span><span class="o">*</span><span class="nx">longshipProvider</span><span class="p">)</span><span class="w"> </span><span class="nx">DataSources</span><span class="p">(</span><span class="nx">_</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span><span class="w"> </span><span class="p">[]</span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="nx">datasource</span><span class="p">.</span><span class="nx">DataSource</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">[]</span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="nx">datasource</span><span class="p">.</span><span class="nx">DataSource</span><span class="p">{</span>
+<span class="w">        </span><span class="nx">NewChargepointsDataSource</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">NewWebhooksDataSource</span><span class="p">,</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// Resources defines the resources implemented in the provider.</span>
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">p</span><span class="w"> </span><span class="o">*</span><span class="nx">longshipProvider</span><span class="p">)</span><span class="w"> </span><span class="nx">Resources</span><span class="p">(</span><span class="nx">_</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span><span class="w"> </span><span class="p">[]</span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="nx">resource</span><span class="p">.</span><span class="nx">Resource</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">[]</span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="nx">resource</span><span class="p">.</span><span class="nx">Resource</span><span class="p">{</span>
+<span class="w">        </span><span class="nx">NewWebhookResource</span><span class="p">,</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+  <footer>
+    <ul class="actions">
+      <li><a href="https://blog.coutinho.io" class="button large">Back Home</a></li>
+    </ul>
+    <ul class="stats">
+		  <li><a href="#">tag1</a></li>
+    </ul>
+  </footer>
+</article>
+					</div>
+
+				<!-- Sidebar -->
+					<section id="sidebar">
+
+						<!-- Intro -->
+							<section id="intro">
+								<a href="#" class="logo"><img src="/theme/images/logo.jpg" alt="" /></a>
+								<header>
+                                    <h2>Chris' blog</h2>
+                                    <p></p>
+								</header>
+							</section>
+
+<!-- Mini Posts -->
+<section>
+  <div class="mini-posts">
+
+    <!-- Mini Post -->
+    <article class="mini-post">
+      <header>
+      <h3><a href="https://blog.coutinho.io/terraform-plugin-provider.html">Building a custom provider using the Terraform Plugin Framework</a></h3>
+        <time class="published" datetime="2023-07-11">Jul 11, 2023</time>
+        <a href="#" class="author"><img src="https://blog.coutinho.io/images/self.jpg" alt="" /></a>
+      </header>
+      <a href="https://blog.coutinho.io/terraform-plugin-provider.html" class="image"><img src="https://blog.coutinho.io/theme/images/" alt="" /></a>
+    </article>
+    <!-- Mini Post -->
+    <article class="mini-post">
+      <header>
+      <h3><a href="https://blog.coutinho.io/faust-oauth.html">OAuth2 Kakfa and Python</a></h3>
+        <time class="published" datetime="2023-07-10">Jul 10, 2023</time>
+        <a href="#" class="author"><img src="https://blog.coutinho.io/images/self.jpg" alt="" /></a>
+      </header>
+      <a href="https://blog.coutinho.io/faust-oauth.html" class="image"><img src="https://blog.coutinho.io/theme/images/" alt="" /></a>
+    </article>
+
+  </div>
+</section>
+						<!-- About -->
+							<section class="blurb">
+								<h2>About</h2>
+								<p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod amet placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at phasellus sed ultricies.</p>
+								<ul class="actions">
+									<li><a href="#" class="button">Learn More</a></li>
+								</ul>
+							</section>
+
+						<!-- Footer -->
+							<section id="footer">
+								<ul class="icons">
+									<li><a href="https://www.github.com/cbcoutinho" class="icon brands fa-github"><span class="label">Github</span></a></li>
+									<li><a href="https://www.linkedin.com/in/cbcoutinho/" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+									<li><a href="https://www.instagram.com/chrisbcoutinho" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+								</ul>
+								<p class="copyright">&copy; Untitled. Design: <a href="http://html5up.net">HTML5 UP</a>. Images: <a href="http://unsplash.com">Unsplash</a>.</p>
+							</section>
+
+					</section>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="/theme/js/jquery.min.js"></script>
+			<script src="/theme/js/browser.min.js"></script>
+			<script src="/theme/js/breakpoints.min.js"></script>
+			<script src="/theme/js/util.js"></script>
+			<script src="/theme/js/main.js"></script>
+
+	</body>
+</html>

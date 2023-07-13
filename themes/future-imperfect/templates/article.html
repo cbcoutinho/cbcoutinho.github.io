@@ -20,7 +20,7 @@
     </ul>
     <ul class="stats">
 	  {% for tag in article.tags %}
-		  <li><a href="#">{{ tag.name }}</a></li>
+		  <li><a href="{{ SITEURL }}/{{ tag.url }}">{{ tag.name }}</a></li>
 	  {% endfor %}
     </ul>
   </footer>

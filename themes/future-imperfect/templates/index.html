@@ -20,9 +20,9 @@
                 <li><a href="{{ SITEURL }}/{{ article.url }}" class="button large">Continue Reading</a></li>
             </ul>
             <ul class="stats">
-	  {% for tag in article.tags %}
-		  <li><a href="#">{{ tag.name }}</a></li>
-	  {% endfor %}
+		  {% for tag in article.tags %}
+			  <li><a href="{{ SITEURL }}/{{ tag.url }}">{{ tag.name }}</a></li>
+		  {% endfor %}
             </ul>
         </footer>
     </article>
